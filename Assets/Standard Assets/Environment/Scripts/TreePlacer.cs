@@ -23,7 +23,7 @@ public class TreePlacer : MonoBehaviour {
                     float xOffset = Random.Range(0, maxDiplacement);
                     float yOffset = Random.Range(0, maxDiplacement);
                     Vector3 treePosition = new Vector3(i+xOffset, tree.transform.localScale.y, j+yOffset);
-                    Instantiate(tree, treePosition, Quaternion.identity, transform);
+                    //Instantiate(tree, treePosition, Quaternion.identity, transform);
                 }
             }
         }

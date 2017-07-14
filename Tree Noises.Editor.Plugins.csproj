@@ -121,10 +121,6 @@
       <Project>{4D3156EA-E64A-51E1-F60F-522D14DE5205}</Project>
       <Name>Tree Noises.Plugins</Name>
     </ProjectReference>
-    <ProjectReference Include="Tree Noises.csproj">
-      <Project>{75D74CA1-7966-B2FA-C0B2-2432BA3B3F26}</Project>
-      <Name>Tree Noises</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Standard Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
