@@ -12,12 +12,25 @@ namespace LSys
         string axiom;
         Dictionary<string, List<Rule>> grammar;
 
-        public LSystem()
+        public LSystem(string axiom, Dictionary<string, List<Rule>> grammar)
         {
-            axiom = "FX";
-            grammar = new Dictionary<string, List<Rule>>();
-            grammar["X"] = new List<Rule>();
-            grammar["X"].Add(new Rule(1.0f, "[-FX][+FX]"));
+            if (axiom != null)
+            {
+                this.axiom = axiom;
+            } else
+            {
+                axiom = "FX";
+            }
+
+            if (grammar != null)
+            {
+                this.grammar = grammar;
+            } else
+            {
+                grammar = new Dictionary<string, List<Rule>>();
+                grammar["X"] = new List<Rule>();
+                grammar["X"].Add(new Rule(1.0f, "[-FX][+FX]"));
+            }
         }
 
         public static LinkedListA<string> StringToLL(string inputString)
@@ -73,6 +86,7 @@ namespace LSys
                         {
                             // apply rule
                             ll.Replace(node, StringToLL(rules[i].str));
+                            break;
                         }
                     }
                 }

@@ -45,6 +45,7 @@ public class Interact : MonoBehaviour {
                 throw new UnassignedReferenceException();
             }
         }
+
     }
 
     private void OnTriggerEnter(Collider other)

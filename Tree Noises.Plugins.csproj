@@ -87,13 +87,14 @@
     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TouchPad.cs" />
     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\LSystem.cs" />
-    <Compile Include="Assets\Standard Assets\Environment\Scripts\Test.cs" />
+    <Compile Include="Assets\Standard Assets\Environment\Scripts\TreeGenerator.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TreePlacer.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\Turtle.cs" />
     <Compile Include="Assets\Standard Assets\FirstPersonCharacter\Scripts\FirstPersonController.cs" />
     <Compile Include="Assets\Standard Assets\FirstPersonCharacter\Scripts\Interact.cs" />
     <Compile Include="Assets\Standard Assets\FirstPersonCharacter\Scripts\MouseLook.cs" />
     <Compile Include="Assets\Standard Assets\Geometry\Cylinder.cs" />
+    <Compile Include="Assets\Standard Assets\Geometry\Leaf.cs" />
     <Compile Include="Assets\Standard Assets\Geometry\MeshGenerator.cs" />
     <Compile Include="Assets\Standard Assets\Utility\ActivateTrigger.cs" />
     <Compile Include="Assets\Standard Assets\Utility\AlphaButtonClickMask.cs" />

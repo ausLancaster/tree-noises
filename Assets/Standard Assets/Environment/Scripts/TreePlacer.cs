@@ -6,9 +6,9 @@ public class TreePlacer : MonoBehaviour {
 
     public GameObject tree;
 
-    private float groundWidth = 1000.0f;
+    private float groundWidth = 100.0f;
     private float spacing = 10.0f;
-    private float maxDiplacement = 6.0f;
+    private float maxDiplacement = 9.0f;
     private float noiseThreshold = 0.4f;
 
 	// Use this for initialization
@@ -22,8 +22,8 @@ public class TreePlacer : MonoBehaviour {
                 {
                     float xOffset = Random.Range(0, maxDiplacement);
                     float yOffset = Random.Range(0, maxDiplacement);
-                    Vector3 treePosition = new Vector3(i+xOffset, tree.transform.localScale.y, j+yOffset);
-                    //Instantiate(tree, treePosition, Quaternion.identity, transform);
+                    Vector3 treePosition = new Vector3(i+xOffset, 0, j+yOffset);
+                    Instantiate(tree, treePosition, Quaternion.identity, transform);
                 }
             }
         }
