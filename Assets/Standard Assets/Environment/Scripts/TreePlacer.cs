@@ -6,6 +6,7 @@ public class TreePlacer : MonoBehaviour {
 
     public GameObject tree;
 
+
     private float groundWidth = 100.0f;
     private float spacing = 10.0f;
     private float maxDiplacement = 9.0f;
@@ -13,7 +14,8 @@ public class TreePlacer : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		for (float i=-groundWidth/2; i<=groundWidth/2; i+=spacing)
+
+        for (float i=-groundWidth/2; i<=groundWidth/2; i+=spacing)
         {
             for (float j = -groundWidth / 2; j <= groundWidth / 2; j += spacing)
             {

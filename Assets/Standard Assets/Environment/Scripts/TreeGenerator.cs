@@ -12,14 +12,14 @@ public class TreeGenerator : MonoBehaviour {
 	void Awake () {
 
         Dictionary<string, List<Rule>> grammar = new Dictionary<string, List<Rule>>();
-        grammar["B"] = new List<Rule>();
-        grammar["B"].Add(new Rule(1.0f, "A[#B]B"));
+        grammar["T"] = new List<Rule>();
+        grammar["T"].Add(new Rule(1.0f, "A[#T]T"));
         grammar["A"] = new List<Rule>();
         grammar["A"].Add(new Rule(0.6f, "AA"));
         grammar["A"].Add(new Rule(0.4f, "A"));
 
-        LSystem LS = new LSystem("B", grammar);
-        LinkedListA<string> ll = LS.DoIterations(3);
+        LSystem LS = new LSystem("T", grammar);
+        LinkedListA<string> ll = LS.DoIterations(UnityEngine.Random.Range(3,7));
         Turtle turtle = new Turtle(null, 18);
         turtle.RenderSymbols(ll);
 
