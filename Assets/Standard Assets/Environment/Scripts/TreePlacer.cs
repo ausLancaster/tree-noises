@@ -7,7 +7,7 @@ public class TreePlacer : MonoBehaviour {
     public GameObject tree;
 
 
-    private float groundWidth = 100.0f;
+    private float groundWidth = 200.0f;
     private float spacing = 10.0f;
     private float maxDiplacement = 9.0f;
     private float noiseThreshold = 0.4f;

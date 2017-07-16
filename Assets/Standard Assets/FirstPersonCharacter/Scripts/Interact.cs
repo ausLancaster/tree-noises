@@ -40,7 +40,7 @@ public class Interact : MonoBehaviour {
             if (receiver)
             {
                 PlaySound(receiver);
-                TreeBreather treeBreather = hit.transform.gameObject.GetComponent<TreeBreather>();
+                TreeBreather treeBreather = receiver.GetComponent<TreeBreather>();
                 treeBreather.StartBreathing();
             }
             else
