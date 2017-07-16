@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using LSys;
 
 
 public class Interact : MonoBehaviour {
@@ -39,6 +40,8 @@ public class Interact : MonoBehaviour {
             if (receiver)
             {
                 PlaySound(receiver);
+                TreeBreather treeBreather = hit.transform.gameObject.GetComponent<TreeBreather>();
+                treeBreather.StartBreathing();
             }
             else
             {

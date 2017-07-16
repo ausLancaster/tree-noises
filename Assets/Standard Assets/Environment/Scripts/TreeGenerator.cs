@@ -7,9 +7,14 @@ using Geometry;
 public class TreeGenerator : MonoBehaviour {
 
     public Material material;
+    private Turtle turtle;
+    private LinkedListA<string> ll;
+    private int seed;
 
 	// Use this for initialization
 	void Awake () {
+
+        seed = UnityEngine.Random.Range(0, 10000);
 
         Dictionary<string, List<Rule>> grammar = new Dictionary<string, List<Rule>>();
         grammar["T"] = new List<Rule>();
@@ -19,16 +24,18 @@ public class TreeGenerator : MonoBehaviour {
         grammar["A"].Add(new Rule(0.4f, "A"));
 
         LSystem LS = new LSystem("T", grammar);
-        LinkedListA<string> ll = LS.DoIterations(UnityEngine.Random.Range(3,7));
-        Turtle turtle = new Turtle(null, 18);
-        turtle.RenderSymbols(ll);
+        ll = LS.DoIterations(UnityEngine.Random.Range(3,7));
+        DoTurtle(0);
 
+
+	}
+
+    public void DoTurtle(float breath)
+    {
+        Random.InitState(seed);
+        turtle = new LSys.Turtle(breath);
+        turtle.RenderSymbols(ll);
         MeshGenerator mg = turtle.meshGenerator;
         GetComponent<MeshFilter>().mesh = mg.Generate();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
 }

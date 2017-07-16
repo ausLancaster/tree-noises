@@ -6,16 +6,26 @@ namespace Geometry
 {
     public static class Cylinder
     {
+        public static List<int> verticesToBeUntwisted;
+        public static List<int> normalsToBeUntwisted;
+
         public static MeshGenerator Mesh(float radius, float length, int segments)
         {
             return Mesh(radius, radius, length, segments);
         }
 
-        // Use this for initialization
         public static MeshGenerator Mesh(float radiusBottom, float radiusTop, float length, int segments)
+        {
+            return Mesh(radiusBottom, radiusTop, length, segments, Quaternion.identity);
+        }
+
+        // Use this for initialization
+        public static MeshGenerator Mesh(float radiusBottom, float radiusTop, float length, int segments, Quaternion twist)
         {
             MeshGenerator mesh = new MeshGenerator();
             float angle = (Mathf.PI * 2) / segments;
+            verticesToBeUntwisted = new List<int>();
+            normalsToBeUntwisted = new List<int>();
 
             // Vertices
             Vector3[] vertices = new Vector3[segments * 6 + 2];
@@ -26,7 +36,9 @@ namespace Geometry
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    mesh.vertices.Add(new Vector3(radiusBottom * Mathf.Cos(-angle * i), 0, radiusBottom * Mathf.Sin(-angle * i)));
+                    Vector3 v = new Vector3(radiusBottom * Mathf.Cos(-angle * i), 0, radiusBottom * Mathf.Sin(-angle * i));
+                    verticesToBeUntwisted.Add(mesh.vertices.Count);
+                    mesh.vertices.Add(v);
                 }
             }
 
@@ -71,8 +83,11 @@ namespace Geometry
 
             for (int i = 0; i < segments; i++)
             {
+                normalsToBeUntwisted.Add(mesh.normals.Count);
                 mesh.normals.Add(Vector3.down);
+                normalsToBeUntwisted.Add(mesh.normals.Count);
                 mesh.normals.Add(new Vector3(Mathf.Cos(-angle * i - angle / 2), 0, Mathf.Sin(-angle * i - angle / 2)));
+                normalsToBeUntwisted.Add(mesh.normals.Count);
                 mesh.normals.Add(new Vector3(Mathf.Cos(-angle * i + angle / 2), 0, Mathf.Sin(-angle * i + angle / 2)));
             }
 
@@ -82,7 +97,7 @@ namespace Geometry
                 mesh.normals.Add(new Vector3(Mathf.Cos(-angle * i - angle / 2), 0, Mathf.Sin(-angle * i - angle / 2)));
                 mesh.normals.Add(new Vector3(Mathf.Cos(-angle * i + angle / 2), 0, Mathf.Sin(-angle * i + angle / 2)));
             }
-
+            normalsToBeUntwisted.Add(mesh.normals.Count);
             mesh.normals.Add(Vector3.down);
             mesh.normals.Add(Vector3.up);
 

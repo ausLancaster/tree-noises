@@ -86,7 +86,9 @@
     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TiltInput.cs" />
     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TouchPad.cs" />
     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs" />
+    <Compile Include="Assets\Standard Assets\Environment\Scripts\FPSDisplay.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\LSystem.cs" />
+    <Compile Include="Assets\Standard Assets\Environment\Scripts\TreeBreather.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TreeGenerator.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TreePlacer.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\Turtle.cs" />

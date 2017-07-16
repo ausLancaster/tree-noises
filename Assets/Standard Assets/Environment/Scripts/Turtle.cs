@@ -19,19 +19,27 @@ namespace LSys
         private int heightInStems;
         private float height = UnityEngine.Random.Range(4.0f, 7.0f);
         private float angle;
-
         private float baseRadius = 0.3f;
         private float radiusShrinkRatio = 0.88f;
         private float radiusMaxShrink = 30;
-        private float baseLength;
-        private float lengthShrinkRatio = 0.95f;
+        private float branchLength;
+        private float branchAngleExtraX = UnityEngine.Random.Range(-40.0f, 40.0f);
+        private float branchAngleExtraZ = UnityEngine.Random.Range(-40.0f, 40.0f);
+        private Vector3 twistVector = new Vector3(UnityEngine.Random.Range(-7.0f, 7.0f),
+                                                  UnityEngine.Random.Range(-7.0f, 7.0f),
+                                                  UnityEngine.Random.Range(-7.0f, 7.0f));
+        private Quaternion twistQuaternion;
+        private int stemsUntilSwitch = 10;
+        private float breath;
 
-        public Turtle(Dictionary<string, Action> grammar, float angle)
+        public Turtle(float breath)
         {
+            this.breath = breath;
+            twistVector *= ((1-breath) + 0.35f);
             meshGenerator = new MeshGenerator();
             state = new TurtleState(new Vector3(0, 0, 0),
                                     Quaternion.identity,
-                                    baseRadius, baseLength);
+                                    baseRadius, 0);
             previousStates = new List<TurtleState>();
             this.angle = angle;
 
@@ -46,9 +54,8 @@ namespace LSys
             this.grammar["^"] = () => Rotate(0, angle, 0);
             this.grammar["&"] = () => Rotate(0, -angle, 0);
             this.grammar["#"] = () => RandomRotate();
-            this.grammar["F"] = () => Stem();
             this.grammar["L"] = () => Leaf();
-            this.grammar["A"] = () => CurvedStem();
+            this.grammar["A"] = () => Branch();
 
         }
 
@@ -68,7 +75,6 @@ namespace LSys
 
         private void CountRatios(LinkedListA<string> ll)
         {
-            String str = LSystem.LLToString(ll); // TODO: delete
 
             List<List<int>> lengths = new List<List<int>>();
             int i = 0;
@@ -79,7 +85,7 @@ namespace LSys
             LinkedListNodeA<string> currentNode;
             for (currentNode = ll.first; currentNode != null; currentNode = currentNode.next)
             {
-                if (currentNode.item == "A")
+                if (currentNode.item == "A" || currentNode.item == "B")
                 {
                     lengths[i][lengths[i].Count-1]++;
                 } else if (currentNode.item == "[")
@@ -103,7 +109,7 @@ namespace LSys
 
             for (currentNode = ll.first; currentNode != null; currentNode = currentNode.next)
             {
-                if (currentNode.item == "A")
+                if (currentNode.item == "A" || currentNode.item == "B")
                 {
                     ratios.Add(counts[i] += (1-bases[i]) / lengths[i][islands[i]]);
                 }
@@ -130,7 +136,7 @@ namespace LSys
             }
 
             heightInStems = lengths[0][0];
-            baseLength = height / heightInStems;
+            branchLength = height / heightInStems;
 
             return;
 
@@ -141,7 +147,7 @@ namespace LSys
             previousStates.Add(new TurtleState(state.pos,
                                               state.dir,
                                               state.currentRadius,
-                                              state.currentLength));
+                                              state.extentCount));
         }
 
         private void ResumePosition()
@@ -152,7 +158,16 @@ namespace LSys
 
         private void Rotate(float x, float y, float z)
         {
-            state.dir *= Quaternion.Euler(x, y, z);
+            state.dir = Quaternion.Euler(x, y, z) * state.dir;
+        }
+
+        private void RandomRotate()
+        {
+            float minBranchAngle = -90.0f;
+            float maxBranchAngle = 90.0f;
+            float x = UnityEngine.Random.Range(minBranchAngle, maxBranchAngle);
+            float z = UnityEngine.Random.Range(minBranchAngle, maxBranchAngle);
+            Rotate(x + branchAngleExtraX*breath, 0.0f, z + branchAngleExtraZ*breath);
         }
 
         private void MoveForward(float length)
@@ -163,40 +178,41 @@ namespace LSys
         private void Draw(MeshGenerator mg)
         {
             mg.Rotate(state.dir);
+            for (int i=0; i<Cylinder.verticesToBeUntwisted.Count; i++)
+            {
+                mg.vertices[Cylinder.verticesToBeUntwisted[i]] = Quaternion.Inverse(twistQuaternion) * mg.vertices[Cylinder.verticesToBeUntwisted[i]];
+            }
+            for (int i = 0; i < Cylinder.normalsToBeUntwisted.Count; i++)
+            {
+                mg.normals[Cylinder.normalsToBeUntwisted[i]] = Quaternion.Inverse(twistQuaternion) * mg.normals[Cylinder.normalsToBeUntwisted[i]];
+            }
             mg.Translate(state.pos);
             meshGenerator.Add(mg);
         }
 
-        private void Stem()
+        private void Branch()
         {
             float oldRadius = state.currentRadius;
-            state.currentRadius = baseRadius * Mathf.Pow(radiusShrinkRatio, ratios[stemCount]*radiusMaxShrink);
+            state.currentRadius = baseRadius * Mathf.Pow(radiusShrinkRatio, ratios[stemCount] * radiusMaxShrink);
 
-            Draw(Cylinder.Mesh(oldRadius, state.currentRadius, baseLength, 4));
-            MoveForward(baseLength);
+            Draw(Cylinder.Mesh(oldRadius, state.currentRadius, branchLength, 4, twistQuaternion));
+            MoveForward(branchLength);
 
-            //state.currentLength *= lengthShrinkRatio;
+
+            if (state.extentCount % stemsUntilSwitch == 0)
+            {
+                twistVector = -twistVector;
+                twistQuaternion = Quaternion.Euler(twistVector);
+            }
+            state.dir = twistQuaternion * state.dir;
 
             stemCount++;
+            state.extentCount++;
         }
 
         private void Leaf()
         {
             Draw(Geometry.Leaf.Mesh(0.2f, 0.07f));
-        }
-
-        private void CurvedStem()
-        {
-            Stem();
-        }
-
-        private void RandomRotate()
-        {
-            float minBranchAngle = -90.0f;
-            float maxBranchAngle = 90.0f;
-            float x = UnityEngine.Random.Range(minBranchAngle, maxBranchAngle);
-            float z = UnityEngine.Random.Range(minBranchAngle, maxBranchAngle);
-            Rotate(x, 0.0f, z);
         }
 
     }
@@ -206,14 +222,14 @@ namespace LSys
         public Vector3 pos;
         public Quaternion dir;
         public float currentRadius;
-        public float currentLength;
+        public int extentCount;
 
-        public TurtleState(Vector3 pos, Quaternion dir, float currentRadius, float currentLength)
+        public TurtleState(Vector3 pos, Quaternion dir, float currentRadius, int extentCount)
         {
             this.pos = pos;
             this.dir = dir;
             this.currentRadius = currentRadius;
-            this.currentLength = currentLength;
+            this.extentCount = extentCount;
         }
     }
 }

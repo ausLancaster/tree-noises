@@ -11,6 +11,7 @@ namespace LSys
 
         string axiom;
         Dictionary<string, List<Rule>> grammar;
+        public int iterations;
 
         public LSystem(string axiom, Dictionary<string, List<Rule>> grammar)
         {
@@ -64,6 +65,8 @@ namespace LSys
                     replaceNode(ll, c);
                 }
             }
+
+            iterations = n;
 
             return ll;
         }
