@@ -15,9 +15,9 @@ public class TreePlacer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        for (float i=-groundWidth/2; i<=groundWidth/2; i+=spacing)
+        for (float i=-groundWidth/2; i<groundWidth/2; i+=spacing)
         {
-            for (float j = -groundWidth / 2; j <= groundWidth / 2; j += spacing)
+            for (float j = -groundWidth / 2; j < groundWidth / 2; j += spacing)
             {
                 if (i == 0 && j == 0) continue;
                 if (Random.value > noiseThreshold)
