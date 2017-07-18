@@ -13,7 +13,7 @@ public class TreePlacer : MonoBehaviour {
     private float noiseThreshold = 0.4f;
 
 	// Use this for initialization
-	void Awake () {
+	void Start () {
 
         for (float i=-groundWidth/2; i<=groundWidth/2; i+=spacing)
         {

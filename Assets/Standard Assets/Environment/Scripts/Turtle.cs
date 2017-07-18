@@ -17,7 +17,7 @@ namespace LSys
         private List<float> ratios;
         private int stemCount = 0;
         private int heightInStems;
-        private float height = UnityEngine.Random.Range(4.0f, 7.0f);
+        private float height = UnityEngine.Random.Range(6.0f, 11.0f); // was 4 - 7
         private float angle;
         private float baseRadius = 0.3f;
         private float radiusShrinkRatio = 0.88f;
@@ -35,13 +35,13 @@ namespace LSys
         public Turtle(float breath)
         {
             this.breath = breath;
-            twistVector *= ((1-breath) + 0.35f);
+            //twistVector *= ((1-breath) + 0.35f); "straghtens out"
+            twistVector *= 1+breath;
             meshGenerator = new MeshGenerator();
             state = new TurtleState(new Vector3(0, 0, 0),
                                     Quaternion.identity,
                                     baseRadius, 0);
             previousStates = new List<TurtleState>();
-            this.angle = angle;
 
             this.grammar = new Dictionary<string, Action>();
             this.grammar["["] = () => SavePosition();
