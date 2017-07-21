@@ -9,20 +9,20 @@ namespace Geometry
         public static List<int> verticesToBeUntwisted;
         public static List<int> normalsToBeUntwisted;
 
-        public static MeshGenerator Mesh(float radius, float length, int segments)
+        public static MeshBuilder Mesh(float radius, float length, int segments)
         {
             return Mesh(radius, radius, length, segments);
         }
 
-        public static MeshGenerator Mesh(float radiusBottom, float radiusTop, float length, int segments)
+        public static MeshBuilder Mesh(float radiusBottom, float radiusTop, float length, int segments)
         {
             return Mesh(radiusBottom, radiusTop, length, segments, Quaternion.identity);
         }
 
         // Use this for initialization
-        public static MeshGenerator Mesh(float radiusBottom, float radiusTop, float length, int segments, Quaternion twist)
+        public static MeshBuilder Mesh(float radiusBottom, float radiusTop, float length, int segments, Quaternion twist)
         {
-            MeshGenerator mesh = new MeshGenerator();
+            MeshBuilder mesh = new MeshBuilder();
             float angle = (Mathf.PI * 2) / segments;
             verticesToBeUntwisted = new List<int>();
             normalsToBeUntwisted = new List<int>();

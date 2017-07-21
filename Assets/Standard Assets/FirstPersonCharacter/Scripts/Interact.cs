@@ -10,7 +10,7 @@ public class Interact : MonoBehaviour {
     public GameObject touch;
     public GameObject firstPersonCharacter;
 
-    float reach = 3.0f;
+    float reach = 4.0f;
     bool canInteract = false;
     bool insideCollider = false;
     GameObject receiver = null;

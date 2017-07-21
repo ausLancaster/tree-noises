@@ -8,9 +8,9 @@ namespace Geometry
     {
 
         // Use this for initialization
-        public static MeshGenerator Mesh(float height, float width)
+        public static MeshBuilder Mesh(float height, float width)
         {
-            MeshGenerator mesh = new MeshGenerator();
+            MeshBuilder mesh = new MeshBuilder();
 
             // Vertices
 

@@ -9,7 +9,7 @@ namespace LSys
 
     public class Turtle
     {
-        public MeshGenerator meshGenerator;
+        public MeshBuilder meshGenerator;
 
         private TurtleState state;
         private List<TurtleState> previousStates;
@@ -19,7 +19,7 @@ namespace LSys
         private int heightInStems;
         private float height = UnityEngine.Random.Range(6.0f, 13.0f); // was 4 - 7
         private float angle;
-        private float baseRadius = 0.3f;
+        private float baseRadius = 0.35f;
         private float radiusShrinkRatio = 0.88f;
         private float radiusMaxShrink = 30;
         private float branchLength;
@@ -37,7 +37,7 @@ namespace LSys
             this.breath = breath;
             //twistVector *= ((1-breath) + 0.35f); "straghtens out"
             twistVector *= 1+breath;
-            meshGenerator = new MeshGenerator();
+            meshGenerator = new MeshBuilder();
             state = new TurtleState(new Vector3(0, 0, 0),
                                     Quaternion.identity,
                                     baseRadius, 0);
@@ -175,7 +175,7 @@ namespace LSys
             state.pos += (state.dir * Vector3.up) * length;
         }
 
-        private void Draw(MeshGenerator mg)
+        private void Draw(MeshBuilder mg)
         {
             mg.Rotate(state.dir);
             for (int i=0; i<Cylinder.verticesToBeUntwisted.Count; i++)

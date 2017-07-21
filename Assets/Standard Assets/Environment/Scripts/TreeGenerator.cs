@@ -35,7 +35,7 @@ public class TreeGenerator : MonoBehaviour {
         Random.InitState(seed);
         turtle = new LSys.Turtle(breath);
         turtle.RenderSymbols(ll);
-        MeshGenerator mg = turtle.meshGenerator;
+        MeshBuilder mg = turtle.meshGenerator;
         GetComponent<MeshFilter>().mesh = mg.Generate();
     }
 }
