@@ -55,7 +55,7 @@ namespace Terrain
         public void CreateTerrain()
         {
             //var heightMap = GetHeightmap();
-            terrain = new Terrain(heightmap, settings.length, settings.height);
+            terrain = new Terrain(heightmap, settings.length, settings.height, settings.resolution);
             var mesh = terrain.Generate().Generate();
 
             gameObject = new GameObject("Terrain Chunk (" + position.X + ", " + position.Z + ")");
@@ -79,15 +79,14 @@ namespace Terrain
         {
             lock (HeightmapThreadLockObject)
             {
-                var heightmap = new float[settings.resolution, settings.resolution];
+                var heightmap = new float[settings.resolution+2, settings.resolution+2];
 
-                for (var xRes = 0; xRes < settings.resolution; xRes++)
+                for (var xRes = 0; xRes < settings.resolution+2; xRes++)
                 {
-                    for (var zRes = 0; zRes < settings.resolution; zRes++)
+                    for (var zRes = 0; zRes < settings.resolution+2; zRes++)
                     {
-                        var xCoordinate = position.X * (settings.resolution - 1) + (float)xRes;
-                        var zCoordinate = position.Z * (settings.resolution - 1) + (float)zRes;
-
+                        var xCoordinate = position.X * (settings.resolution - 1) + (float)xRes-1;
+                        var zCoordinate = position.Z * (settings.resolution - 1) + (float)zRes-1;
                         heightmap[xRes, zRes] = noiseProvider.GetValue(xCoordinate, zCoordinate);
                     }
                 }

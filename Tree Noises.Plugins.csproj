@@ -95,6 +95,7 @@
     <Compile Include="Assets\Standard Assets\Environment\Scripts\LSystem.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\RockPlacer.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\SeussNoise.cs" />
+    <Compile Include="Assets\Standard Assets\Environment\Scripts\SeussNoise1.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\Terrain.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TerrainChunk.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TerrainChunkGenerator.cs" />
