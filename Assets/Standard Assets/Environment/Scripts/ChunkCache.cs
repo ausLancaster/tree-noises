@@ -5,7 +5,7 @@ namespace Terrain
 {
     public class ChunkCache
     {
-        private readonly int MaxChunkThreads = 3;
+        private readonly int MaxChunkThreads = 4;
 
         private Dictionary<Vector2i, TerrainChunk> RequestedChunks { get; set; }
 

@@ -28,10 +28,28 @@ namespace Terrain
 
         public TerrainChunk(TerrainChunkSettings settings, INoiseProvider noiseProvider, int x, int z, Material material)
         {
+            HeightmapThreadLockObject = new object();
+
             this.settings = settings;
             this.noiseProvider = noiseProvider;
+            Neighborhood = new TerrainChunkNeighborhood();
+
             position = new Vector2i(x, z);
             this.material = material;
+        }
+
+        public override int GetHashCode()
+        {
+            return position.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as TerrainChunk;
+            if (other == null)
+                return false;
+
+            return this.position.Equals(other.position);
         }
 
         public void CreateTerrain()
@@ -61,7 +79,7 @@ namespace Terrain
         {
             lock (HeightmapThreadLockObject)
             {
-                heightmap = new float[settings.resolution, settings.resolution];
+                var heightmap = new float[settings.resolution, settings.resolution];
 
                 for (var xRes = 0; xRes < settings.resolution; xRes++)
                 {
@@ -73,6 +91,7 @@ namespace Terrain
                         heightmap[xRes, zRes] = noiseProvider.GetValue(xCoordinate, zCoordinate);
                     }
                 }
+                this.heightmap = heightmap;
             }
         }
 

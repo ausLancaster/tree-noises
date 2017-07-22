@@ -16,7 +16,7 @@ namespace Terrain
 
         private void Awake()
         {
-            settings = new TerrainChunkSettings(129, 50, 0);
+            settings = new TerrainChunkSettings(33, 10, 0);
             noiseProvider = new SeussNoise();
 
             cache = new ChunkCache();
