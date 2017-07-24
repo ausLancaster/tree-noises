@@ -23,6 +23,7 @@ namespace Terrain
         {
             var canActivateCharacter = false;
 
+            //player.position = new Vector3(UnityEngine.Random.Range(-5000, 5000), player.position.y, UnityEngine.Random.Range(-5000, 5000));
             generator.UpdateTerrain(player.position, radius);
 
             do

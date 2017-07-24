@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+
 namespace Terrain
 {
 
@@ -18,20 +19,24 @@ namespace Terrain
 
         private INoiseProvider noiseProvider { get; set; }
 
+        private List<IFeatureGenerator> featureGenerator;
+
         private Material material { get; set; }
 
         private object HeightmapThreadLockObject { get; set; }
+        private object TerrainThreadLockObject { get; set; }
 
         private TerrainChunkNeighborhood Neighborhood { get; set; }
 
         private GameObject gameObject { get; set; }
 
-        public TerrainChunk(TerrainChunkSettings settings, INoiseProvider noiseProvider, int x, int z, Material material)
+        public TerrainChunk(TerrainChunkSettings settings, INoiseProvider noiseProvider, List<IFeatureGenerator> featureGenerator, int x, int z, Material material)
         {
             HeightmapThreadLockObject = new object();
 
             this.settings = settings;
             this.noiseProvider = noiseProvider;
+            this.featureGenerator = featureGenerator;
             Neighborhood = new TerrainChunkNeighborhood();
 
             position = new Vector2i(x, z);
@@ -55,8 +60,11 @@ namespace Terrain
         public void CreateTerrain()
         {
             //var heightMap = GetHeightmap();
+
             terrain = new Terrain(heightmap, settings.length, settings.height, settings.resolution);
-            var mesh = terrain.Generate().Generate();
+
+            var meshBuilder = terrain.Generate();
+            var mesh = meshBuilder.Generate();
 
             gameObject = new GameObject("Terrain Chunk (" + position.X + ", " + position.Z + ")");
             gameObject.transform.position = new Vector3(position.X*settings.length, 0, position.Z*settings.length);
@@ -67,6 +75,12 @@ namespace Terrain
             gameObject.GetComponent<MeshCollider>().sharedMesh = mesh;
             var renderer = gameObject.AddComponent<MeshRenderer>();            
             renderer.material = material;
+
+            for (int i=0; i<featureGenerator.Count; i++)
+            {
+                featureGenerator[i].Generate(position, noiseProvider);
+            }
+
         }
 
         public void GenerateHeightmap()
@@ -87,6 +101,9 @@ namespace Terrain
                     {
                         var xCoordinate = position.X * (settings.resolution - 1) + (float)xRes-1;
                         var zCoordinate = position.Z * (settings.resolution - 1) + (float)zRes-1;
+                        xCoordinate = (xCoordinate / settings.resolution) * settings.length;
+                        zCoordinate = (zCoordinate / settings.resolution) * settings.length;
+
                         heightmap[xRes, zRes] = noiseProvider.GetValue(xCoordinate, zCoordinate);
                     }
                 }

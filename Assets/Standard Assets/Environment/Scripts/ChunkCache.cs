@@ -5,7 +5,7 @@ namespace Terrain
 {
     public class ChunkCache
     {
-        private readonly int MaxChunkThreads = 4;
+        private readonly int MaxChunkThreads = 3;
 
         private Dictionary<Vector2i, TerrainChunk> RequestedChunks { get; set; }
 
@@ -28,7 +28,6 @@ namespace Terrain
         public void Update()
         {
             TryToDeleteQueuedChunks();
-
             GenerateHeightmapForAvailableChunks();
             CreateTerrainForReadyChunks();
         }

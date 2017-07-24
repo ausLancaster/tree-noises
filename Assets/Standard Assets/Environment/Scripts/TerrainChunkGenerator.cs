@@ -12,12 +12,16 @@ namespace Terrain
 
         private INoiseProvider noiseProvider;
 
+        private List<IFeatureGenerator> featureGenerator;
+
         private ChunkCache cache;
 
         private void Awake()
         {
-            settings = new TerrainChunkSettings(33, 10, 0);
-            noiseProvider = new SeussNoise();
+            settings = new TerrainChunkSettings(17, 50, 0.1f);
+            noiseProvider = new SeussNoise0();
+            featureGenerator = new List<IFeatureGenerator>();
+            featureGenerator.Add(new TreePlacer(settings.length));
 
             cache = new ChunkCache();
         }
@@ -31,7 +35,7 @@ namespace Terrain
         {
             if (cache.ChunkCanBeAdded(x, z))
             {
-                var chunk = new TerrainChunk(settings, noiseProvider, x, z, terrainMaterial);
+                var chunk = new TerrainChunk(settings, noiseProvider, featureGenerator, x, z, terrainMaterial);
                 cache.AddNewChunk(chunk);
             }
         }

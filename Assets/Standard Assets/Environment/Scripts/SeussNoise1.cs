@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace Terrain
 {
+    // thick roses, achieved by changing sinFreq according to large noise
+
     public class SeussNoise1 : INoiseProvider
     {
-        float largeVariableFreq = 1 / 200.0f;
+        float largeVariableFreq = 1 / 200.0f; // larger frequency for pointier roses
 
         float turbulenceFreq = 1 / 80.0f;
         float turbulenceAmp = 80.0f;
@@ -29,13 +31,13 @@ namespace Terrain
         public float GetValue(float x, float y)
         {
             // setUp large varibales
-            var variable0 = Mathf.PerlinNoise(x * largeVariableFreq + 10000, y * largeVariableFreq + 20000);
+            var variable0 = Mathf.PerlinNoise((x+10000)* largeVariableFreq, (y+20000) * largeVariableFreq);
             var sinAmplitude = Mathf.Lerp(2.0f, 8.0f, variable0);
             var sinFreq = (1 / 10.0f) / sinAmplitude;
 
             // create dunes
-            var x0 = 2 * Mathf.PerlinNoise(x * turbulenceFreq + 10000, y * turbulenceFreq + 20000) - 1;
-            var y0 = 2 * Mathf.PerlinNoise(x * turbulenceFreq + 30000, y * turbulenceFreq + 40000) - 1;
+            var x0 = 2 * Mathf.PerlinNoise((x+10000)* turbulenceFreq, (y+20000) * turbulenceFreq) - 1;
+            var y0 = 2 * Mathf.PerlinNoise((x+30000)* turbulenceFreq, (y+ 40000) * turbulenceFreq) - 1;
             var result = sinAmplitude * (Mathf.Sin((x + turbulenceAmp * x0) * sinFreq) + Mathf.Sin((y + turbulenceAmp * x0) * sinFreq));
             if (result < sinAmplitude * cutoffRatio) result = sinAmplitude * cutoffRatio;
 

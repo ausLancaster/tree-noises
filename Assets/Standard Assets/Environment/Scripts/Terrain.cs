@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Geometry;
+using UnityEngine.Profiling;
+
 
 namespace Terrain {
 
@@ -22,7 +24,8 @@ namespace Terrain {
 
         public MeshBuilder Generate()
         {
-            var mg = new MeshBuilder();
+            var mb = new MeshBuilder();
+
 
             for (int i = 0; i < heightMap.GetLength(0); i++)
             {
@@ -31,9 +34,10 @@ namespace Terrain {
                     float x = (i-1) * (length / (resolution-1));
                     float y = (j-1) * (length / (resolution-1));
 
-                    mg.vertices.Add(new Vector3(x, heightMap[i, j], y));
+                    mb.vertices.Add(new Vector3(x, heightMap[i, j], y));
                 }
             }
+
 
             for (int i=0; i< heightMap.GetLength(0)-1; i++)
             {
@@ -44,41 +48,44 @@ namespace Terrain {
                     int x10 = i + 1 + j * heightMap.GetLength(0);
                     int x11 = i + 1 + (j + 1) * heightMap.GetLength(0);
 
-                    mg.triangles.Add(x00);
-                    mg.triangles.Add(x10);
-                    mg.triangles.Add(x11);
+                    mb.triangles.Add(x00);
+                    mb.triangles.Add(x10);
+                    mb.triangles.Add(x11);
 
-                    mg.triangles.Add(x00);
-                    mg.triangles.Add(x11);
-                    mg.triangles.Add(x01);
+                    mb.triangles.Add(x00);
+                    mb.triangles.Add(x11);
+                    mb.triangles.Add(x01);
 
                 }
             }
 
-            for (int i = 0; i < mg.vertices.Count; i++)
+
+            for (int i = 0; i < mb.vertices.Count; i++)
             {
-                mg.normals.Add(Vector3.zero);
+                mb.normals.Add(Vector3.zero);
             }
 
-            for (int i=0; i<mg.triangles.Count; i+=3)
+            for (int i=0; i<mb.triangles.Count; i+=3)
             {
-                var ia = mg.triangles[i];
-                var ib = mg.triangles[i+1];
-                var ic = mg.triangles[i+2];
+                var ia = mb.triangles[i];
+                var ib = mb.triangles[i+1];
+                var ic = mb.triangles[i+2];
 
-                var e1 = mg.vertices[ia] - mg.vertices[ib];
-                var e2 = mg.vertices[ic] - mg.vertices[ib];
+                var e1 = mb.vertices[ia] - mb.vertices[ib];
+                var e2 = mb.vertices[ic] - mb.vertices[ib];
                 var no = Vector3.Cross(e1, e2);
 
-                mg.normals[ia] += no;
-                mg.normals[ib] += no;
-                mg.normals[ic] += no;
+                mb.normals[ia] += no;
+                mb.normals[ib] += no;
+                mb.normals[ic] += no;
             }
 
-            for (int i = 0; i < mg.normals.Count; i++)
+            for (int i = 0; i < mb.normals.Count; i++)
             {
-                mg.normals[i] = Vector3.Normalize(mg.normals[i]);
+                mb.normals[i] = Vector3.Normalize(mb.normals[i]);
             }
+
+
 
             // cull extra rows
             for (int i = heightMap.GetLength(0) - 2; i >= 0; i--)
@@ -89,13 +96,15 @@ namespace Terrain {
                     {
                         for (int k = 5; k >= 0; k--)
                         {
-                            mg.triangles.RemoveAt((i * (heightMap.GetLength(0) - 1) + j)*6 + k);
+                            mb.triangles.RemoveAt((i * (heightMap.GetLength(0) - 1) + j)*6 + k);
                         }
                     }
                 }
             }
 
-                    return mg;
+
+
+            return mb;
         }
     }
 

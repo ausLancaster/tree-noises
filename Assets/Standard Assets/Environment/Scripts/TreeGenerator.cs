@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LSys;
 using Geometry;
+using UnityEngine.Profiling;
 
 public class TreeGenerator : MonoBehaviour {
 
@@ -23,8 +24,10 @@ public class TreeGenerator : MonoBehaviour {
         grammar["A"].Add(new Rule(0.6f, "AA"));
         grammar["A"].Add(new Rule(0.4f, "A"));
 
+        Profiler.BeginSample("DoLSystem");
         LSystem LS = new LSystem("T", grammar);
         ll = LS.DoIterations(UnityEngine.Random.Range(3,7));
+        Profiler.EndSample();
         DoTurtle(0);
 
 
@@ -34,7 +37,9 @@ public class TreeGenerator : MonoBehaviour {
     {
         Random.InitState(seed);
         turtle = new LSys.Turtle(breath);
+        Profiler.BeginSample("render symbols");
         turtle.RenderSymbols(ll);
+        Profiler.EndSample();
         MeshBuilder mg = turtle.meshGenerator;
         GetComponent<MeshFilter>().mesh = mg.Generate();
     }
