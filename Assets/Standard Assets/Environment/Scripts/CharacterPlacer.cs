@@ -6,6 +6,7 @@ using Terrain;
 public class CharacterPlacer : MonoBehaviour {
 
     public TerrainChunkGenerator tcg;
+    private float relativeHeight = 0.98f;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +24,6 @@ public class CharacterPlacer : MonoBehaviour {
 
     private void Place()
     {
-        transform.position = new Vector3(0, tcg.GetHeight(0, 0), 0);
+        transform.position = new Vector3(0, tcg.GetHeight(0, 0) + relativeHeight, 0);
     }
 }

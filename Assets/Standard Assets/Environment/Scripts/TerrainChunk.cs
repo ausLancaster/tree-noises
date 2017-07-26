@@ -33,7 +33,8 @@ namespace Terrain
             this.featureGenerator = featureGenerator;
             this.material = material;
 
-            seed = Random.Range(0.0f, 1000000.0f);
+            seed = Random.Range(0.0f, 100000.0f);
+            MonoBehaviour.print(seed);
         }
 
         public void CreateTerrain()

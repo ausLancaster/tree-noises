@@ -13,7 +13,7 @@ namespace Terrain
         float turbulenceFreq = 1/80.0f;
         float turbulenceAmp = 120.0f; //80.0f;
         float sinAmplitude = 5.0f;
-        float sinFreq = 1 / 16.0f;
+        float sinFreq = 1 / 12.0f;
         float cutoffRatio = 0.2f;
 
         float hillMax = 30.0f;
@@ -31,13 +31,13 @@ namespace Terrain
         {
 
             // create dunes
-            var x0 = 2 * Mathf.PerlinNoise(x * turbulenceFreq + seed + 10000, y * turbulenceFreq + seed + 20000) - 1;
-            var y0 = 2 * Mathf.PerlinNoise(x * turbulenceFreq + seed + 30000, y * turbulenceFreq + seed + 40000) - 1;
+            var x0 = 2 * Mathf.PerlinNoise((x + seed + 10000) * turbulenceFreq, (y + seed + 20000) * turbulenceFreq) - 1;
+            var y0 = 2 * Mathf.PerlinNoise((x + seed + 30000) * turbulenceFreq, (y + seed + 40000) * turbulenceFreq) - 1;
             var result = sinAmplitude * (Mathf.Sin((x + turbulenceAmp * x0) * sinFreq) + Mathf.Sin((y + turbulenceAmp * x0) * sinFreq));
             if (result < sinAmplitude * cutoffRatio) result = sinAmplitude * cutoffRatio;
 
             // add large hills
-            var hill = Mathf.PerlinNoise(x * hillFrequency + seed + 10000, y * hillFrequency + seed + 20000);
+            var hill = Mathf.PerlinNoise((x + seed + 10000) * hillFrequency, (y + seed + 20000) * hillFrequency);
             result += hill * hillMax;
             return result;
 
