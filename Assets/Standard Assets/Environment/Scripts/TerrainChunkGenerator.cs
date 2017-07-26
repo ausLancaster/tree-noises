@@ -18,7 +18,7 @@ namespace Terrain
 
         private void Awake()
         {
-            settings = new TerrainChunkSettings(65, 200, 0.1f);
+            settings = new TerrainChunkSettings(129, 200, 0.1f);
             noiseProvider = new SeussNoise0();
             featureGenerator = new List<IFeatureGenerator>();
             featureGenerator.Add(new TreePlacer(settings.length));
