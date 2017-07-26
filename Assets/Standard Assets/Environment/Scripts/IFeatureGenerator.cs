@@ -7,6 +7,6 @@ namespace Terrain
     public interface IFeatureGenerator
     {
 
-        void Generate(Vector2i position, INoiseProvider noiseProvider);
+        //void Generate(Vector2i position, INoiseProvider noiseProvider);
     }
 }

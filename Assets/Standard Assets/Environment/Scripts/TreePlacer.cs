@@ -24,7 +24,7 @@ namespace Terrain
         }
 
         // Use this for initialization
-        public void Generate(Vector2i position, INoiseProvider noiseProvider)
+        /*public void Generate(Vector2i position, INoiseProvider noiseProvider)
         {
 
             for (float i = 0; i < length; i += spacing)
@@ -43,7 +43,7 @@ namespace Terrain
                     }
                 }
             }
-        }
+        }*/
 
         // Update is called once per frame
         void Update()

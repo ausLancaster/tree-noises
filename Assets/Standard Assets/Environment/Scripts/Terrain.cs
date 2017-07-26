@@ -30,10 +30,10 @@ namespace Terrain {
             {
                 for (int j = 0; j < heightMap.GetLength(1); j++)
                 {
-                    float x = (i-1) * (length / (resolution-1));
-                    float y = (j-1) * (length / (resolution-1));
+                    float x = i * (length / (resolution-1));
+                    float y = j * (length / (resolution-1));
 
-                    mb.vertices.Add(new Vector3(x, heightMap[i, j], y));
+                    mb.vertices.Add(new Vector3(x - length/2, heightMap[i, j], y - length/2));
                 }
             }
 

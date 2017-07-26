@@ -87,9 +87,7 @@
     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TouchPad.cs" />
     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\CharacterPlacer.cs" />
-    <Compile Include="Assets\Standard Assets\Environment\Scripts\ChunkCache.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\CubeGenerator.cs" />
-    <Compile Include="Assets\Standard Assets\Environment\Scripts\Delegates.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\FPSDisplay.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\IFeatureGenerator.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\INoiseProvider.cs" />
@@ -103,14 +101,11 @@
     <Compile Include="Assets\Standard Assets\Environment\Scripts\Terrain.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TerrainChunk.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TerrainChunkGenerator.cs" />
-    <Compile Include="Assets\Standard Assets\Environment\Scripts\TerrainChunkNeightborhood.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TerrainChunkSettings.cs" />
-    <Compile Include="Assets\Standard Assets\Environment\Scripts\TerrainController.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TreeBreather.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TreeGenerator.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TreePlacer.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\Turtle.cs" />
-    <Compile Include="Assets\Standard Assets\Environment\Scripts\Vec2I.cs" />
     <Compile Include="Assets\Standard Assets\FirstPersonCharacter\Scripts\FirstPersonController.cs" />
     <Compile Include="Assets\Standard Assets\FirstPersonCharacter\Scripts\Interact.cs" />
     <Compile Include="Assets\Standard Assets\FirstPersonCharacter\Scripts\MouseLook.cs" />

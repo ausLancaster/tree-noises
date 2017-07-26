@@ -7,9 +7,8 @@ public class CharacterPlacer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        float height = 0.2f;
-        if (height < 0.2f) height = 0.2f;
-        transform.position = new Vector3(0, 0.98f + height, 0);
+        INoiseProvider noiseProvider = new SeussNoise0();
+        transform.position = new Vector3(0, noiseProvider.GetValue(0, 0), 0);
     }
 	
 	// Update is called once per frame

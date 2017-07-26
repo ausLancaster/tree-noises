@@ -9,8 +9,6 @@ namespace Terrain
 
     public class TerrainChunk
     {
-        public Vector2i position { get; private set; }
-
         private Terrain terrain { get; set; }
 
         private float[,] heightmap { get; set; }
@@ -23,38 +21,16 @@ namespace Terrain
 
         private Material material { get; set; }
 
-        private object HeightmapThreadLockObject { get; set; }
-        private object TerrainThreadLockObject { get; set; }
-
-        private TerrainChunkNeighborhood Neighborhood { get; set; }
 
         private GameObject gameObject { get; set; }
 
-        public TerrainChunk(TerrainChunkSettings settings, INoiseProvider noiseProvider, List<IFeatureGenerator> featureGenerator, int x, int z, Material material)
+        public TerrainChunk(TerrainChunkSettings settings, INoiseProvider noiseProvider, List<IFeatureGenerator> featureGenerator, Material material)
         {
-            HeightmapThreadLockObject = new object();
-
             this.settings = settings;
             this.noiseProvider = noiseProvider;
             this.featureGenerator = featureGenerator;
-            Neighborhood = new TerrainChunkNeighborhood();
 
-            position = new Vector2i(x, z);
             this.material = material;
-        }
-
-        public override int GetHashCode()
-        {
-            return position.GetHashCode();
-        }
-
-        public override bool Equals(object obj)
-        {
-            var other = obj as TerrainChunk;
-            if (other == null)
-                return false;
-
-            return this.position.Equals(other.position);
         }
 
         public void CreateTerrain()
@@ -66,8 +42,8 @@ namespace Terrain
             var meshBuilder = terrain.Generate();
             var mesh = meshBuilder.Generate();
 
-            gameObject = new GameObject("Terrain Chunk (" + position.X + ", " + position.Z + ")");
-            gameObject.transform.position = new Vector3(position.X*settings.length, 0, position.Z*settings.length);
+            gameObject = new GameObject("Terrain Chunk");
+            gameObject.transform.position = new Vector3(0, 0, 0);
 
             gameObject.AddComponent<MeshFilter>();
             gameObject.GetComponent<MeshFilter>().mesh = mesh;
@@ -78,130 +54,32 @@ namespace Terrain
 
             for (int i=0; i<featureGenerator.Count; i++)
             {
-                featureGenerator[i].Generate(position, noiseProvider);
+                //featureGenerator[i].Generate(gameObject.transform.position, noiseProvider);
             }
 
         }
 
         public void GenerateHeightmap()
         {
-            var thread = new Thread(GenerateHeightmapThread);
-            thread.Start();
-        }
+            var heightmap = new float[settings.resolution, settings.resolution];
 
-        private void GenerateHeightmapThread()
-        {
-            lock (HeightmapThreadLockObject)
+            for (var xRes = 0; xRes < settings.resolution; xRes++)
             {
-                var heightmap = new float[settings.resolution+2, settings.resolution+2];
-
-                for (var xRes = 0; xRes < settings.resolution+2; xRes++)
+                for (var zRes = 0; zRes < settings.resolution; zRes++)
                 {
-                    for (var zRes = 0; zRes < settings.resolution+2; zRes++)
-                    {
-                        var xCoordinate = position.X * (settings.resolution - 1) + (float)xRes-1;
-                        var zCoordinate = position.Z * (settings.resolution - 1) + (float)zRes-1;
-                        xCoordinate = (xCoordinate / settings.resolution) * settings.length;
-                        zCoordinate = (zCoordinate / settings.resolution) * settings.length;
+                    var xCoordinate = ((float)xRes / settings.resolution) * settings.length - settings.length / 2;
+                    var zCoordinate = ((float)zRes / settings.resolution) * settings.length - settings.length / 2;
 
-                        heightmap[xRes, zRes] = noiseProvider.GetValue(xCoordinate, zCoordinate);
-                    }
+                    heightmap[xRes, zRes] = noiseProvider.GetValue(xCoordinate, zCoordinate);
                 }
-                this.heightmap = heightmap;
             }
-        }
-
-        public bool IsHeightmapReady()
-        {
-            return terrain == null && heightmap != null;
+            this.heightmap = heightmap;
         }
 
         public float GetTerrainHeight(Vector3 worldPosition)
         {
             return noiseProvider.GetValue(worldPosition.x, worldPosition.z);
         }
-
-        public void Remove()
-        {
-            heightmap = null;
-            settings = null;
-
-            if (Neighborhood.XDown != null)
-            {
-                Neighborhood.XDown.RemoveFromNeighborhood(this);
-                Neighborhood.XDown = null;
-            }
-            if (Neighborhood.XUp != null)
-            {
-                Neighborhood.XUp.RemoveFromNeighborhood(this);
-                Neighborhood.XUp = null;
-            }
-            if (Neighborhood.ZDown != null)
-            {
-                Neighborhood.ZDown.RemoveFromNeighborhood(this);
-                Neighborhood.ZDown = null;
-            }
-            if (Neighborhood.ZUp != null)
-            {
-                Neighborhood.ZUp.RemoveFromNeighborhood(this);
-                Neighborhood.ZUp = null;
-            }
-
-            if (terrain != null)
-                GameObject.Destroy(gameObject);
-        }
-
-        public void RemoveFromNeighborhood(TerrainChunk chunk)
-        {
-            if (Neighborhood.XDown == chunk)
-                Neighborhood.XDown = null;
-            if (Neighborhood.XUp == chunk)
-                Neighborhood.XUp = null;
-            if (Neighborhood.ZDown == chunk)
-                Neighborhood.ZDown = null;
-            if (Neighborhood.ZUp == chunk)
-                Neighborhood.ZUp = null;
-        }
-
-        public void SetNeighbors(TerrainChunk chunk, TerrainNeighbor direction)
-        {
-            if (chunk != null)
-            {
-                switch (direction)
-                {
-                    case TerrainNeighbor.XUp:
-                        Neighborhood.XUp = chunk;
-                        break;
-
-                    case TerrainNeighbor.XDown:
-                        Neighborhood.XDown = chunk;
-                        break;
-
-                    case TerrainNeighbor.ZUp:
-                        Neighborhood.ZUp = chunk;
-                        break;
-
-                    case TerrainNeighbor.ZDown:
-                        Neighborhood.ZDown = chunk;
-                        break;
-                }
-            }
-        }
-
-        public void UpdateNeighbors()
-        {
-            if (terrain != null)
-            {
-                var xDown = Neighborhood.XDown == null ? null : Neighborhood.XDown.terrain;
-                var xUp = Neighborhood.XUp == null ? null : Neighborhood.XUp.terrain;
-                var zDown = Neighborhood.ZDown == null ? null : Neighborhood.ZDown.terrain;
-                var zUp = Neighborhood.ZUp == null ? null : Neighborhood.ZUp.terrain;
-                //terrain.SetNeighbors(xDown, zUp, xUp, zDown);
-                //terrain.Flush();
-            }
-        }
-
-
     }
 
 
