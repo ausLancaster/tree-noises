@@ -6,9 +6,8 @@ namespace Terrain
 {
     public interface INoiseProvider
     {
-
         // Use this for initialization
-        float GetValue(float x, float z);
+        float GetValue(float x, float z, float seed);
     }
 
 }

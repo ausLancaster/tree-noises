@@ -10,7 +10,7 @@ namespace Terrain
         float perlinFrequency = 1 / 100.0f;
         float perlinAmplitude = 20.0f;
 
-        public float GetValue(float x, float y)
+        public float GetValue(float x, float y, float seed)
         {
 
             var result = Mathf.PerlinNoise(x * perlinFrequency + 10000, y * perlinFrequency + 20000);

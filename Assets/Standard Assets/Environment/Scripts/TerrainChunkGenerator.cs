@@ -10,11 +10,11 @@ namespace Terrain
 
         private TerrainChunkSettings settings;
 
-        private INoiseProvider noiseProvider;
+        public INoiseProvider noiseProvider;
 
         private List<IFeatureGenerator> featureGenerator;
 
-        private TerrainChunk terrainChunk;
+        public TerrainChunk terrainChunk;
 
         private void Awake()
         {
@@ -23,10 +23,33 @@ namespace Terrain
             featureGenerator = new List<IFeatureGenerator>();
             featureGenerator.Add(new TreePlacer(settings.length));
 
+            CreateTerrainChunk();
+        }
 
+        private void Update()
+        {
+            if (Input.GetButtonDown("Generate"))
+            {
+                RemoveTerrainChunk();
+                CreateTerrainChunk();
+            }
+        }
+
+        private void CreateTerrainChunk()
+        {
             terrainChunk = new TerrainChunk(settings, noiseProvider, featureGenerator, terrainMaterial);
             terrainChunk.GenerateHeightmap();
             terrainChunk.CreateTerrain();
+        }
+
+        private void RemoveTerrainChunk()
+        {
+            terrainChunk.Destroy();
+        }
+
+        public float GetHeight (float x, float z)
+        {
+            return terrainChunk.GetTerrainHeight(x, z);
         }
     }
 }

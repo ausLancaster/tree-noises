@@ -5,14 +5,24 @@ using Terrain;
 
 public class CharacterPlacer : MonoBehaviour {
 
+    public TerrainChunkGenerator tcg;
+
 	// Use this for initialization
 	void Start () {
-        INoiseProvider noiseProvider = new SeussNoise0();
-        transform.position = new Vector3(0, noiseProvider.GetValue(0, 0), 0);
+        Place();
     }
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void LateUpdate () {
+        if (Input.GetButtonDown("Generate"))
+        {
+            Place();
+        }
+
+    }
+
+    private void Place()
+    {
+        transform.position = new Vector3(0, tcg.GetHeight(0, 0), 0);
+    }
 }
