@@ -19,6 +19,9 @@ namespace Terrain
         float hillMax = 30.0f;
         float hillFrequency = 1 / 120.0f;
 
+        float rMax = 100.0f;
+        float rWidth = 40.0f;
+
         /*
                 float turbulenceFreq = 1 / 80.0f;
         float turbulenceAmp = 80.0f;
@@ -39,7 +42,18 @@ namespace Terrain
             // add large hills
             var hill = Mathf.PerlinNoise((x + seed + 10000) * hillFrequency, (y + seed + 20000) * hillFrequency);
             result += hill * hillMax;
-            return result;
+
+            // cutoff at radius
+            var radius = Mathf.Sqrt(x*x + y*y);
+            if (radius > rMax)
+            {
+                result = 0;
+            } else if (radius > rMax - rWidth)
+            {
+                result *= Mathf.SmoothStep(0, 1, (rMax-radius)/rWidth);
+            }
+
+            return result - 1;
 
         }
     }
