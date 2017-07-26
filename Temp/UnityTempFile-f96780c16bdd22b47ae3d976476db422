@@ -4,11 +4,13 @@
 -langversion:4
 -out:Temp/Assembly-CSharp-firstpass.dll
 -r:"C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll"
+-r:"C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll"
 -r:"C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll"
 -r:"C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll"
 -r:"C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll"
 -r:"C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll"
 -r:"C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll"
+-r:"C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/UnityPurchasing/UnityEngine.Purchasing.dll"
 -r:"C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll"
 -r:"C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll"
 -define:UNITY_5_3_OR_NEWER

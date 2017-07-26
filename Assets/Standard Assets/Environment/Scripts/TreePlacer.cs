@@ -10,7 +10,7 @@ namespace Terrain
 
         private GameObject tree;
         private float length;
-        private float spacing = 20.0f;
+        private float spacing = 40.0f;
         private float maxDiplacement = 9.0f;
         private float noiseThreshold = 0.4f;
         private GameObject trees;

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Geometry;
-using UnityEngine.Profiling;
 
 
 namespace Terrain {
