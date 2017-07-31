@@ -34,7 +34,6 @@ namespace Terrain
             this.material = material;
 
             seed = Random.Range(0.0f, 100000.0f);
-            MonoBehaviour.print(seed);
         }
 
         public void CreateTerrain()
