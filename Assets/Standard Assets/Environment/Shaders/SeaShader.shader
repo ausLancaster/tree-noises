@@ -69,7 +69,15 @@ Shader "Custom/SeaShader" {
 		float sunReflection(Input IN) {
 			float m = (_SunPosition.z - _WorldSpaceCameraPos.z) / (_SunPosition.x - _WorldSpaceCameraPos.x);
 			float y = m * (IN.worldPos.x - _WorldSpaceCameraPos.x) + _WorldSpaceCameraPos.z;
+			float cutoff = (-1 / m)*(IN.worldPos.x - _WorldSpaceCameraPos.x) + _WorldSpaceCameraPos.z;
+
+			if (IN.worldPos.z < cutoff) {
+				return 0;
+			}
 			if (IN.worldPos.z > y - 10 && IN.worldPos.z < y + 10) {
+				if (IN.worldPos.z > cutoff && IN.worldPos.z < cutoff + 5) {
+					return (IN.worldPos.z - cutoff) / 5 * 0.5;
+				}
 				return 0.5;
 			}
 			return 0;
