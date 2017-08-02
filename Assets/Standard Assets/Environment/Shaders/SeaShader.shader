@@ -18,6 +18,7 @@ Shader "Custom/SeaShader" {
 		_Step2("Color Step 2", Range(0, 1)) = 0.7
 		_Step3("Color Step 3", Range(0, 1)) = 0.95
 		_SunPosition("Sun Position", Vector) = (0, 0, 0)
+		_SlopeWidth("Slope Width", Range(0, 50)) = 10
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -65,20 +66,27 @@ Shader "Custom/SeaShader" {
 		}
 
 		float3 _SunPosition;
+		float _SlopeWidth;
 
 		float sunReflection(Input IN) {
+			float cutoffLength = 10;
+			
 			float m = (_SunPosition.z - _WorldSpaceCameraPos.z) / (_SunPosition.x - _WorldSpaceCameraPos.x);
 			float y = m * (IN.worldPos.x - _WorldSpaceCameraPos.x) + _WorldSpaceCameraPos.z;
-			float cutoff = (-1 / m)*(IN.worldPos.x - _WorldSpaceCameraPos.x) + _WorldSpaceCameraPos.z;
+			float m_perp = (-1 / m);
+			float cutoff = m_perp*(IN.worldPos.x - _WorldSpaceCameraPos.x) + _WorldSpaceCameraPos.z;
 
 			if (IN.worldPos.z > cutoff) {
 				return 0;
 			}
-			if (IN.worldPos.z > y - 10 && IN.worldPos.z < y + 10) {
-				if (IN.worldPos.z < cutoff && IN.worldPos.z > cutoff - 5) {
-					return (cutoff - IN.worldPos.z) / 5 * 0.5;
+			_SlopeWidth = abs(_SlopeWidth / m_perp);
+			if (IN.worldPos.z > y - _SlopeWidth && IN.worldPos.z < y + _SlopeWidth) {
+				float slope = abs(y-IN.worldPos.z);
+				float slopeValue = ((_SlopeWidth -slope)/ _SlopeWidth) * 0.5;
+				if (IN.worldPos.z < cutoff && IN.worldPos.z > cutoff - cutoffLength) {
+					return (cutoff - IN.worldPos.z) / cutoffLength * slopeValue;
 				}
-				return 0.5;
+				return slopeValue;
 			}
 			return 0;
 		}
