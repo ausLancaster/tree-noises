@@ -17,9 +17,11 @@ Shader "Custom/SeaShader" {
 		_Step1("Color Step 1", Range(0, 1)) = 0.3
 		_Step2("Color Step 2", Range(0, 1)) = 0.7
 		_Step3("Color Step 3", Range(0, 1)) = 0.95
+		_SunPosition("Sun Position", Vector) = (0, 0, 0)
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
+		//Tags{ "LightMode" = "Vertex" }
 		LOD 200
 		
 		CGPROGRAM
@@ -62,8 +64,12 @@ Shader "Custom/SeaShader" {
 					dot(hash(i + float2(1.0, 1.0)), f - float2(1.0, 1.0)), u.x), u.y);
 		}
 
+		float3 _SunPosition;
+
 		float sunReflection(Input IN) {
-			if (length(IN.worldPos.xz - _WorldSpaceLightPos0.xz) < 20) {
+			float m = (_SunPosition.z - _WorldSpaceCameraPos.z) / (_SunPosition.x - _WorldSpaceCameraPos.x);
+			float y = m * (IN.worldPos.x - _WorldSpaceCameraPos.x) + _WorldSpaceCameraPos.z;
+			if (IN.worldPos.z > y - 10 && IN.worldPos.z < y + 10) {
 				return 0.5;
 			}
 			return 0;
