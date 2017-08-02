@@ -4,7 +4,10 @@
 		_MainTex ("Texture", 2D) = "white" {}
 		_SecondTex("Second Texture", 2D) = "white" {}
 		_Tween("Tween", Range(0, 1)) = 0
-		_Color ("Color", Color) = (0.25, 0.65, 0.45, 0.5)
+		_Color1 ("Color1", Color) = (0, 0, 0, 1)
+		_Color2("Color2", Color) = (0.5, 0.5, 0.5, 1)
+		_Color3("Color3", Color) = (1, 1, 1, 1)
+
 	}
 	SubShader{
 		Tags
