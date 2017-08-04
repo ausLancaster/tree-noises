@@ -98,6 +98,7 @@
     <Compile Include="Assets\Standard Assets\Environment\Scripts\SeussNoise1.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\SeussNoise2.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\SeussNoise3.cs" />
+    <Compile Include="Assets\Standard Assets\Environment\Scripts\SkyHeight.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\Terrain.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TerrainChunk.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TerrainChunkGenerator.cs" />

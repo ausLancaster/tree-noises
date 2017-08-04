@@ -70,6 +70,7 @@ Shader "Custom/SeaShader" {
 
 		float sunReflection(Input IN) {
 			float cutoffLength = 10;
+			float additive = 0.4;
 			
 			float m = (_SunPosition.z - _WorldSpaceCameraPos.z) / (_SunPosition.x - _WorldSpaceCameraPos.x);
 			float y = m * (IN.worldPos.x - _WorldSpaceCameraPos.x) + _WorldSpaceCameraPos.z;
@@ -82,7 +83,7 @@ Shader "Custom/SeaShader" {
 			_SlopeWidth = abs(_SlopeWidth / m_perp);
 			if (IN.worldPos.z > y - _SlopeWidth && IN.worldPos.z < y + _SlopeWidth) {
 				float slope = abs(y-IN.worldPos.z);
-				float slopeValue = ((_SlopeWidth -slope)/ _SlopeWidth) * 0.5;
+				float slopeValue = ((_SlopeWidth -slope)/ _SlopeWidth) * ((_SlopeWidth - slope) / _SlopeWidth) * additive;
 				if (IN.worldPos.z < cutoff && IN.worldPos.z > cutoff - cutoffLength) {
 					return (cutoff - IN.worldPos.z) / cutoffLength * slopeValue;
 				}
