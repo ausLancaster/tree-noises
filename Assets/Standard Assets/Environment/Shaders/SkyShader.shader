@@ -87,7 +87,10 @@ Shader "Custom/SkyShader" {
 		float3 _Color4;
 
 		float3 getColor(Input IN) {
-			float noise = fbm(float2(IN.worldPos.x*(1 / 100.0), IN.worldPos.z*(1 / 100.0)), _Time.y*(1/10.0)) + 0.5;
+			float2 distortion;
+			distortion.x = fbm(float2(IN.worldPos.x*(1 / 100.0), IN.worldPos.z*(1 / 100.0)), _Time.y*(1 / 10.0));
+			distortion.y = fbm(float2(IN.worldPos.x*(1 / 100.0), IN.worldPos.z*(1 / 100.0)) + float2(1, 1), _Time.y*(1 / 10.0));
+			float noise = fbm(float2(IN.worldPos.x*(1 / 100.0), IN.worldPos.z*(1 / 100.0)) + distortion, _Time.y*(1/20.0)) + 0.5;
 			float3 skyColor = float3(1, 1, 0);
 			float3 result;
 			float greyColor = noise * float3(1, 1, 1);
