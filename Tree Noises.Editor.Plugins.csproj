@@ -128,6 +128,7 @@
   <ItemGroup>
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Environment\Shaders\SeaShader.shader" />
+    <None Include="Assets\Standard Assets\Environment\Shaders\SkyShader.shader" />
     <None Include="Assets\Standard Assets\Environment\Shaders\Test1.shader" />
     <None Include="Assets\Standard Assets\FirstPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
