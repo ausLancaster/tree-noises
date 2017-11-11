@@ -21,6 +21,8 @@ namespace Terrain
 
         private Material material { get; set; }
 
+        private float seed;
+
 
         private GameObject gameObject { get; set; }
 
@@ -29,8 +31,9 @@ namespace Terrain
             this.settings = settings;
             this.noiseProvider = noiseProvider;
             this.featureGenerator = featureGenerator;
-
             this.material = material;
+
+            seed = Random.Range(0.0f, 100000.0f);
         }
 
         public void CreateTerrain()
@@ -70,15 +73,20 @@ namespace Terrain
                     var xCoordinate = ((float)xRes / settings.resolution) * settings.length - settings.length / 2;
                     var zCoordinate = ((float)zRes / settings.resolution) * settings.length - settings.length / 2;
 
-                    heightmap[xRes, zRes] = noiseProvider.GetValue(xCoordinate, zCoordinate);
+                    heightmap[xRes, zRes] = noiseProvider.GetValue(xCoordinate, zCoordinate, seed);
                 }
             }
             this.heightmap = heightmap;
         }
 
-        public float GetTerrainHeight(Vector3 worldPosition)
+        public void Destroy()
         {
-            return noiseProvider.GetValue(worldPosition.x, worldPosition.z);
+            GameObject.Destroy(gameObject);
+        }
+
+        public float GetTerrainHeight(float x, float z)
+        {
+            return noiseProvider.GetValue(x, z, seed);
         }
     }
 

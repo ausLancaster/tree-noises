@@ -17,7 +17,7 @@ namespace Terrain
 
         float cutoffRatio = 0.2f;
 
-        public float GetValue(float x, float y)
+        public float GetValue(float x, float y, float seed)
         {
 
             // create dunes

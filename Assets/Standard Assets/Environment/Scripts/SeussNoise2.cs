@@ -28,7 +28,7 @@ namespace Terrain
         float cutoffRatio = 0.2f;
         */
 
-        public float GetValue(float x, float y)
+        public float GetValue(float x, float y, float seed)
         {
             var variable1 = Mathf.PerlinNoise(x * largeVariableFreq*4 + 10000, y * largeVariableFreq*4 + 20000);
             var ratio0 = Mathf.Lerp(1/30.0f, 1/10.0f, variable1);
