@@ -10,6 +10,8 @@ namespace Terrain
     {
         public float seed { get; set; }
 
+        bool dunes = true;
+
         float turbulenceFreq = 1/80.0f;
         float turbulenceAmp = 120.0f; //80.0f;
         float sinAmplitude = 5.0f;
@@ -34,21 +36,31 @@ namespace Terrain
         float cutoffRatio = 0.2f;
         */
 
+        public SeussNoise0(bool dunes)
+        {
+            this.dunes = dunes;
+        }
+
         public float GetValue(float x, float y, float seed)
         {
             Random.InitState((int)seed);
             float result = 0;
 
             // create dunes
-            var x0 = 2 * Mathf.PerlinNoise((x + seed + 10000) * turbulenceFreq, (y + seed + 20000) * turbulenceFreq) - 1;
-            var y0 = 2 * Mathf.PerlinNoise((x + seed + 30000) * turbulenceFreq, (y + seed + 40000) * turbulenceFreq) - 1;
-            var dunes = sinAmplitude * (Mathf.Sin((x + turbulenceAmp * x0) * sinFreq) + Mathf.Sin((y + turbulenceAmp * x0) * sinFreq));
-            if (dunes < sinAmplitude * cutoffRatio) dunes = sinAmplitude * cutoffRatio;
-            result += dunes;
+            if (dunes)
+            {
+                var x0 = 2 * Mathf.PerlinNoise((x + seed + 10000) * turbulenceFreq, (y + seed + 20000) * turbulenceFreq) - 1;
+                var y0 = 2 * Mathf.PerlinNoise((x + seed + 30000) * turbulenceFreq, (y + seed + 40000) * turbulenceFreq) - 1;
+                var dunes = sinAmplitude * (Mathf.Sin((x + turbulenceAmp * x0) * sinFreq) + Mathf.Sin((y + turbulenceAmp * x0) * sinFreq));
+                if (dunes < sinAmplitude * cutoffRatio) dunes = sinAmplitude * cutoffRatio;
+                result += dunes;
+            }
+
 
             // add large hills
             var hill = Mathf.PerlinNoise((x + seed + 10000) * hillFrequency, (y + seed + 20000) * hillFrequency);
             result += hill * hillMax;
+
 
             // calculate coastline
             var angle = Mathf.Atan(y/x);
@@ -65,6 +77,12 @@ namespace Terrain
             } else if (radius > rBeginSlope)
             {
                 result *= Mathf.SmoothStep(0, 1, (rCoast - radius)/(rCoast - rBeginSlope));
+            }
+
+            // raise flat version
+            if (!dunes)
+            {
+                result += 1.1f;
             }
 
             return result - 1;
