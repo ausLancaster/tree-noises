@@ -23,8 +23,8 @@ public class ShaderInit : MonoBehaviour {
     void InitSea()
     {
         seaMaterial.SetColor("_Color1", ColorPalette.Sample(0) * 0.3f);
-        seaMaterial.SetColor("_Color2", ColorPalette.Sample(0.05f) * 0.8f);
-        seaMaterial.SetColor("_Color3", ColorPalette.Sample(0.1f) * 1.2f);
+        seaMaterial.SetColor("_Color2", ColorPalette.Sample(0.05f) * 0.6f);
+        seaMaterial.SetColor("_Color3", ColorPalette.Sample(0.1f) * 1.0f);
         seaMaterial.SetColor("_Color4", new Color(1.0f, 1.0f, 1.0f));
 
     }
