@@ -26,14 +26,14 @@ namespace Terrain
 
         private GameObject gameObject { get; set; }
 
-        public TerrainChunk(TerrainChunkSettings settings, INoiseProvider noiseProvider, List<IFeatureGenerator> featureGenerator, Material material)
+        public TerrainChunk(TerrainChunkSettings settings, INoiseProvider noiseProvider, float seed, List<IFeatureGenerator> featureGenerator, Material material)
         {
             this.settings = settings;
             this.noiseProvider = noiseProvider;
+            this.seed = seed;
             this.featureGenerator = featureGenerator;
             this.material = material;
 
-            seed = Random.Range(0.0f, 100000.0f);
         }
 
         public void CreateTerrain()

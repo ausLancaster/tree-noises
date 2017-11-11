@@ -55,9 +55,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Advertisements">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>Library\UnityAssemblies\UnityEditor.Advertisements.dll</HintPath>
     </Reference>
@@ -100,9 +97,6 @@
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Purchasing">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Purchasing.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.VR">
       <HintPath>Library\UnityAssemblies\UnityEditor.VR.dll</HintPath>
     </Reference>
@@ -126,6 +120,10 @@
     <ProjectReference Include="Tree Noises.Plugins.csproj">
       <Project>{4D3156EA-E64A-51E1-F60F-522D14DE5205}</Project>
       <Name>Tree Noises.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="Tree Noises.csproj">
+      <Project>{75D74CA1-7966-B2FA-C0B2-2432BA3B3F26}</Project>
+      <Name>Tree Noises</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

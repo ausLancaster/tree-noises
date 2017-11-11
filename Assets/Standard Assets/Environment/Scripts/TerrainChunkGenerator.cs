@@ -6,22 +6,30 @@ namespace Terrain
 {
     public class TerrainChunkGenerator : MonoBehaviour
     {
-        public Material terrainMaterial;
+        public Material terrainMaterial1;
+        public Material terrainMaterial2;
 
         private TerrainChunkSettings settings;
 
-        public INoiseProvider noiseProvider;
+        public INoiseProvider noiseProvider1;
+        public INoiseProvider noiseProvider2;
 
         private List<IFeatureGenerator> featureGenerator;
 
-        public TerrainChunk terrainChunk;
+        public TerrainChunk terrainChunk1;
+        public TerrainChunk terrainChunk2;
+
+        private float seed;
 
         private void Awake()
         {
             settings = new TerrainChunkSettings(129, 200, 0.1f);
-            noiseProvider = new SeussNoise0();
+            noiseProvider1 = new SeussNoise0(true);
+            noiseProvider2 = new SeussNoise0(false);
             featureGenerator = new List<IFeatureGenerator>();
             featureGenerator.Add(new TreePlacer(settings.length));
+
+            seed = Random.Range(0.0f, 100000.0f);
 
             CreateTerrainChunk();
         }
@@ -37,19 +45,24 @@ namespace Terrain
 
         private void CreateTerrainChunk()
         {
-            terrainChunk = new TerrainChunk(settings, noiseProvider, featureGenerator, terrainMaterial);
-            terrainChunk.GenerateHeightmap();
-            terrainChunk.CreateTerrain();
+            terrainChunk1 = new TerrainChunk(settings, noiseProvider1, seed, featureGenerator, terrainMaterial1);
+            terrainChunk1.GenerateHeightmap();
+            terrainChunk1.CreateTerrain();
+
+            terrainChunk2 = new TerrainChunk(settings, noiseProvider2, seed, featureGenerator, terrainMaterial2);
+            terrainChunk2.GenerateHeightmap();
+            terrainChunk2.CreateTerrain();
         }
 
         private void RemoveTerrainChunk()
         {
-            terrainChunk.Destroy();
+            terrainChunk1.Destroy();
+            terrainChunk2.Destroy();
         }
 
         public float GetHeight (float x, float z)
         {
-            return terrainChunk.GetTerrainHeight(x, z);
+            return terrainChunk1.GetTerrainHeight(x, z);
         }
     }
 }
