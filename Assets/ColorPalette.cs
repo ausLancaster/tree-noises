@@ -15,10 +15,15 @@ namespace Coloring {
 
         static ColorPalette()
         {
+            Randomize();
+        }
+
+        public static void Randomize()
+        {
             offset = new Vector3(Random.Range(0.0f, 1.0f),
-                                Random.Range(0.0f, 1.0f),
-                                Random.Range(0.0f, 1.0f)
-                                );
+                    Random.Range(0.0f, 1.0f),
+                    Random.Range(0.0f, 1.0f)
+                    );
 
             amp = new Vector3(Random.Range(0.0f, 1.0f),
                         Random.Range(0.0f, 1.0f),

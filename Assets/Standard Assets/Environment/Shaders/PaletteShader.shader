@@ -62,16 +62,92 @@
 
 	sampler2D _MainTex;
 	float4 _Color00;
+	float4 _Color01;
+	float4 _Color02;
+	float4 _Color03;
+	float4 _Color04;
+	float4 _Color05;
+	float4 _Color06;
+	float4 _Color07;
+	float4 _Color08;
+	float4 _Color09;
+	float4 _Color10;
+	float4 _Color11;
+	float4 _Color12;
+	float4 _Color13;
+	float4 _Color14;
+	float4 _Color15;
+	float4 _Color16;
+	float4 _Color17;
+	float4 _Color18;
+	float4 _Color19;
+
+
+
 
 	float4 frag(v2f i) : SV_Target // takes v2f and returns a color (float4)
 	{
 		//float4 color = lerp(tex2D(_MainTex, i.uv * 2), tex2D(_SecondTex, i.uv * 2), _Tween);
 		float4 color;
-		if (i.uv.x > 0.0f) {
+		if (i.uv.x > 0.00f) {
 			color = _Color00;
 		}
-		else if (i.uv.x > 0.0f) {
-			color = _Color00;
+		if (i.uv.x > 0.05f) {
+			color = _Color01;
+		}
+		if (i.uv.x > 0.1f) {
+			color = _Color02;
+		}
+		if (i.uv.x > 0.15f) {
+			color = _Color03;
+		}
+		if (i.uv.x > 0.2f) {
+			color = _Color04;
+		}
+		if (i.uv.x > 0.25f) {
+			color = _Color05;
+		}
+		if (i.uv.x > 0.3f) {
+			color = _Color06;
+		}
+		if (i.uv.x > 0.35f) {
+			color = _Color07;
+		}
+		if (i.uv.x > 0.4f) {
+			color = _Color08;
+		}
+		if (i.uv.x > 0.45f) {
+			color = _Color09;
+		}
+		if (i.uv.x > 0.5f) {
+			color = _Color10;
+		}
+		if (i.uv.x > 0.55f) {
+			color = _Color11;
+		}
+		if (i.uv.x > 0.6f) {
+			color = _Color12;
+		}
+		if (i.uv.x > 0.65f) {
+			color = _Color13;
+		}
+		if (i.uv.x > 0.7f) {
+			color = _Color14;
+		}
+		if (i.uv.x > 0.75f) {
+			color = _Color15;
+		}
+		if (i.uv.x > 0.8f) {
+			color = _Color16;
+		}
+		if (i.uv.x > 0.85f) {
+			color = _Color17;
+		}
+		if (i.uv.x > 0.9f) {
+			color = _Color18;
+		}
+		if (i.uv.x > 0.95f) {
+			color = _Color19;
 		}
 		return color;
 	}
