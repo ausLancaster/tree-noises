@@ -15,7 +15,7 @@ public class TreeGenerator : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 
-        seed = UnityEngine.Random.Range(0, 10000);
+        seed = System.DateTime.Now.Millisecond;
 
         Dictionary<string, List<Rule>> grammar = new Dictionary<string, List<Rule>>();
         grammar["T"] = new List<Rule>();

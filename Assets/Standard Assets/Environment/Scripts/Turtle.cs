@@ -18,7 +18,7 @@ namespace LSys
         private List<float> ratios;
         private int stemCount = 0;
         private int heightInStems;
-        private float height = UnityEngine.Random.Range(6.0f, 13.0f); // was 4 - 7
+        private float height = UnityEngine.Random.Range(13.0f, 20.0f); // was 4 - 7
         private float angle;
         private float baseRadius = 0.35f;
         private float radiusShrinkRatio = 0.88f;

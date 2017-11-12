@@ -27,9 +27,10 @@ namespace Terrain
             noiseProvider1 = new SeussNoise0(true);
             noiseProvider2 = new SeussNoise0(false);
             featureGenerator = new List<IFeatureGenerator>();
-            featureGenerator.Add(new TreePlacer(settings.length));
 
             seed = Random.Range(0.0f, 100000.0f);
+
+            featureGenerator.Add(new TreePlacer(settings.length));
 
             CreateTerrainChunk();
         }
@@ -53,12 +54,18 @@ namespace Terrain
             terrainChunk2 = new TerrainChunk(settings, noiseProvider2, seed, featureGenerator, terrainMaterial2);
             terrainChunk2.GenerateHeightmap();
             terrainChunk2.CreateTerrain();
+
+            foreach (IFeatureGenerator fg in featureGenerator)
+            {
+                fg.Generate(seed, noiseProvider1);
+            }
         }
 
         private void RemoveTerrainChunk()
         {
             terrainChunk1.Destroy();
             terrainChunk2.Destroy();
+
         }
 
         public float GetHeight (float x, float z)
