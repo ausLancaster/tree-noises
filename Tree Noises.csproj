@@ -82,9 +82,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\ColorPalette.cs" />
+    <Compile Include="Assets\ShaderInit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+    <None Include="Assets\Standard Assets\Environment\Shaders\PaletteShader.shader" />
     <None Include="Assets\Standard Assets\Environment\Shaders\SeaShader.shader" />
     <None Include="Assets\Standard Assets\Environment\Shaders\SkyShader.shader" />
     <None Include="Assets\Standard Assets\Environment\Shaders\Test1.shader" />

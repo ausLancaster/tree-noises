@@ -38,6 +38,7 @@ namespace Terrain
         {
             if (Input.GetButtonDown("Generate"))
             {
+                seed = Random.Range(0.0f, 100000.0f);
                 RemoveTerrainChunk();
                 CreateTerrainChunk();
             }
