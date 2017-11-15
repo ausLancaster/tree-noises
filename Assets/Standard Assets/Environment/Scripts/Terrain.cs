@@ -81,7 +81,8 @@ namespace Terrain {
 
             for (int i = 0; i < mb.normals.Count; i++)
             {
-                mb.normals[i] = Vector3.Normalize(mb.normals[i]);
+                mb.normals[i] = -Vector3.Normalize(mb.normals[i]);
+                
             }
 
 

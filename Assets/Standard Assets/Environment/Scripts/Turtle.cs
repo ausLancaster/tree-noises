@@ -18,17 +18,17 @@ namespace LSys
         private List<float> ratios;
         private int stemCount = 0;
         private int heightInStems;
-        private float height = UnityEngine.Random.Range(13.0f, 20.0f); // was 4 - 7
+        private float height = UnityEngine.Random.Range(13.0f, 20.0f);
         private float angle;
-        private float baseRadius = 0.35f;
+        private float baseRadius = 0.45f; //0.35f
         private float radiusShrinkRatio = 0.88f;
         private float radiusMaxShrink = 30;
         private float branchLength;
         private float branchAngleExtraX = UnityEngine.Random.Range(-40.0f, 40.0f);
         private float branchAngleExtraZ = UnityEngine.Random.Range(-40.0f, 40.0f);
-        private Vector3 twistVector = new Vector3(UnityEngine.Random.Range(-7.0f, 7.0f),
-                                                  UnityEngine.Random.Range(-7.0f, 7.0f),
-                                                  UnityEngine.Random.Range(-7.0f, 7.0f));
+        private Vector3 twistVector = Vector3.zero; //new Vector3(UnityEngine.Random.Range(-7.0f, 7.0f),
+                                                  //UnityEngine.Random.Range(-7.0f, 7.0f),
+                                                  //UnityEngine.Random.Range(-7.0f, 7.0f));
         private Quaternion twistQuaternion;
         private int stemsUntilSwitch = 10;
         private float breath;
@@ -178,10 +178,7 @@ namespace LSys
 
         private void Draw(MeshBuilder mg)
         {
-            Profiler.BeginSample("rotate");
             mg.Rotate(state.dir);
-            Profiler.EndSample();
-            Profiler.BeginSample("untwist");
             for (int i=0; i<Cylinder.verticesToBeUntwisted.Count; i++)
             {
                 mg.vertices[Cylinder.verticesToBeUntwisted[i]] = Quaternion.Inverse(twistQuaternion) * mg.vertices[Cylinder.verticesToBeUntwisted[i]];
@@ -191,11 +188,8 @@ namespace LSys
             {
                 mg.normals[Cylinder.normalsToBeUntwisted[i]] = Quaternion.Inverse(twistQuaternion) * mg.normals[Cylinder.normalsToBeUntwisted[i]];
             }
-            Profiler.EndSample();
-            Profiler.BeginSample("translate");
 
             mg.Translate(state.pos);
-            Profiler.EndSample();
 
             meshGenerator.Add(mg);
         }
@@ -204,9 +198,7 @@ namespace LSys
         {
             float oldRadius = state.currentRadius;
             state.currentRadius = baseRadius * Mathf.Pow(radiusShrinkRatio, ratios[stemCount] * radiusMaxShrink);
-            Profiler.BeginSample("cylinder");
             MeshBuilder cylinder = Cylinder.Mesh(oldRadius, state.currentRadius, branchLength, 4, twistQuaternion);
-            Profiler.EndSample();
             Draw(cylinder);
             MoveForward(branchLength);
 

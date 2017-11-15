@@ -23,6 +23,10 @@ namespace Terrain
 
         private float seed;
 
+        private GameObject cube;
+
+
+
 
         private GameObject gameObject { get; set; }
 
@@ -33,6 +37,9 @@ namespace Terrain
             this.seed = seed;
             this.featureGenerator = featureGenerator;
             this.material = material;
+
+            cube = (GameObject)Resources.Load("Cube", typeof(GameObject));
+
 
         }
 
@@ -70,8 +77,11 @@ namespace Terrain
             {
                 for (var zRes = 0; zRes < settings.resolution; zRes++)
                 {
-                    var xCoordinate = ((float)xRes / settings.resolution) * settings.length - settings.length / 2;
-                    var zCoordinate = ((float)zRes / settings.resolution) * settings.length - settings.length / 2;
+                    var xCoordinate = ((float)xRes / (settings.resolution-1)) * settings.length - settings.length / 2;
+                    var zCoordinate = ((float)zRes / (settings.resolution-1)) * settings.length - settings.length / 2;
+
+                    //MonoBehaviour.Instantiate(cube, new Vector3(xCoordinate, noiseProvider.GetValue(xCoordinate, zCoordinate, seed), zCoordinate), Quaternion.identity);
+
 
                     heightmap[xRes, zRes] = noiseProvider.GetValue(xCoordinate, zCoordinate, seed);
                 }

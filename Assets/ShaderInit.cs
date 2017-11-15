@@ -38,8 +38,8 @@ public class ShaderInit : MonoBehaviour {
 
     void InitGround()
     {
-        groundMaterial.SetColor("_Color", ColorPalette.Sample(0.7f));
-        hillsMaterial.SetColor("_Color", ColorPalette.Sample(0.8f));
+        groundMaterial.SetColor("_Color", ColorPalette.Sample(0.7f) * 0.8f);
+        hillsMaterial.SetColor("_Color", ColorPalette.Sample(0.8f) * 0.8f);
     }
 
     void InitPalette()

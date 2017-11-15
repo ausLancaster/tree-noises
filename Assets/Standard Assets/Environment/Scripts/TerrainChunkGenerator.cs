@@ -57,7 +57,7 @@ namespace Terrain
 
             foreach (IFeatureGenerator fg in featureGenerator)
             {
-                fg.Generate(seed, noiseProvider1);
+                fg.Generate(seed, noiseProvider1, settings);
             }
         }
 

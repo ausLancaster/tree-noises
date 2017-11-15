@@ -18,16 +18,15 @@ public class TreeGenerator : MonoBehaviour {
         seed = System.DateTime.Now.Millisecond;
 
         Dictionary<string, List<Rule>> grammar = new Dictionary<string, List<Rule>>();
-        grammar["T"] = new List<Rule>();
-        grammar["T"].Add(new Rule(1.0f, "A[#T]T"));
+        //grammar["T"] = new List<Rule>();
+        //grammar["T"].Add(new Rule(1.0f, "A[T]T"));
+        //grammar["T"].Add(new Rule(1.0f, "A[#T]T"));
         grammar["A"] = new List<Rule>();
         grammar["A"].Add(new Rule(0.6f, "AA"));
         grammar["A"].Add(new Rule(0.4f, "A"));
 
-        Profiler.BeginSample("DoLSystem");
-        LSystem LS = new LSystem("T", grammar);
+        LSystem LS = new LSystem("A", grammar);
         ll = LS.DoIterations(UnityEngine.Random.Range(3,7));
-        Profiler.EndSample();
         DoTurtle(0);
 
 
@@ -37,9 +36,7 @@ public class TreeGenerator : MonoBehaviour {
     {
         Random.InitState(seed);
         turtle = new LSys.Turtle(breath);
-        Profiler.BeginSample("render symbols");
         turtle.RenderSymbols(ll);
-        Profiler.EndSample();
         MeshBuilder mg = turtle.meshGenerator;
         GetComponent<MeshFilter>().mesh = mg.Generate();
     }

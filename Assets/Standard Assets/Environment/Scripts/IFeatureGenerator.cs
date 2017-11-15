@@ -7,6 +7,6 @@ namespace Terrain
     public interface IFeatureGenerator
     {
 
-        void Generate(float seed, INoiseProvider noiseProvider);
+        void Generate(float seed, INoiseProvider noiseProvider, TerrainChunkSettings settings);
     }
 }
