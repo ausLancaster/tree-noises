@@ -11,9 +11,9 @@ namespace Terrain
         private GameObject tree;
         private float seed;
         private float length;
-        private float spacing = 10.0f;
-        private float maxDiplacement = 0.0f;//9.0f;
-        private float noiseThreshold = 0.0f;//0.4f;
+        private float spacing = 12.0f;
+        private float maxDiplacement = 9.0f;
+        private float noiseThreshold = 0.6f;
         private GameObject trees;
 
         public TreePlacer(float length)
@@ -33,7 +33,6 @@ namespace Terrain
             {
                 for (float j = -length/2; j < length/2; j += spacing)
                 {
-                    //if (i == 0 && j == 0) continue;
                     if (Random.value > noiseThreshold)
                     {
                         // calculate tree position
@@ -43,9 +42,8 @@ namespace Terrain
                         float zPosition = j + zOffset;
 
 
-                        //float minHeight = noiseProvider.GetValue(xPosition, zPosition, seed);
                         // find y position by choosing lowest point from 4 nearest heightmap points
-                        float radius = 0.45f;//settings.length / (settings.resolution - 1);
+                        float radius = 0.45f;
                         float minHeight = noiseProvider.GetValue(xPosition-radius, zPosition-radius, seed);
                         float compareHeight = noiseProvider.GetValue(xPosition-radius, zPosition+radius, seed);
                         if (compareHeight < minHeight) minHeight = compareHeight;
