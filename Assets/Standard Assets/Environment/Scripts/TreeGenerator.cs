@@ -18,14 +18,13 @@ public class TreeGenerator : MonoBehaviour {
         seed = System.DateTime.Now.Millisecond;
 
         Dictionary<string, List<Rule>> grammar = new Dictionary<string, List<Rule>>();
-        //grammar["T"] = new List<Rule>();
-        //grammar["T"].Add(new Rule(1.0f, "A[T]T"));
-        //grammar["T"].Add(new Rule(1.0f, "A[#T]T"));
+        grammar["T"] = new List<Rule>();
+        grammar["T"].Add(new Rule(1.0f, "A[#T]T"));
         grammar["A"] = new List<Rule>();
         grammar["A"].Add(new Rule(0.6f, "AA"));
         grammar["A"].Add(new Rule(0.4f, "A"));
 
-        LSystem LS = new LSystem("A", grammar);
+        LSystem LS = new LSystem("T", grammar);
         ll = LS.DoIterations(UnityEngine.Random.Range(3,7));
         DoTurtle(0);
 

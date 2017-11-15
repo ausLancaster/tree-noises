@@ -26,9 +26,9 @@ namespace LSys
         private float branchLength;
         private float branchAngleExtraX = UnityEngine.Random.Range(-40.0f, 40.0f);
         private float branchAngleExtraZ = UnityEngine.Random.Range(-40.0f, 40.0f);
-        private Vector3 twistVector = Vector3.zero; //new Vector3(UnityEngine.Random.Range(-7.0f, 7.0f),
-                                                  //UnityEngine.Random.Range(-7.0f, 7.0f),
-                                                  //UnityEngine.Random.Range(-7.0f, 7.0f));
+        private Vector3 twistVector = new Vector3(UnityEngine.Random.Range(-7.0f, 7.0f),
+                                                  UnityEngine.Random.Range(-7.0f, 7.0f),
+                                                  UnityEngine.Random.Range(-7.0f, 7.0f));
         private Quaternion twistQuaternion;
         private int stemsUntilSwitch = 10;
         private float breath;

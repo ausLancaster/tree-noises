@@ -38,28 +38,24 @@ namespace Terrain
                     {
                         // calculate tree position
                         float xOffset = Random.Range(0, maxDiplacement);
-                        float yOffset = Random.Range(0, maxDiplacement);
+                        float zOffset = Random.Range(0, maxDiplacement);
                         float xPosition = i + xOffset;
-                        float yPosition = j + yOffset;
+                        float zPosition = j + zOffset;
 
 
-                        //float minHeight = noiseProvider.GetValue(xPosition, yPosition, seed);
+                        //float minHeight = noiseProvider.GetValue(xPosition, zPosition, seed);
                         // find y position by choosing lowest point from 4 nearest heightmap points
-                        float heightmapSpacing = settings.length / (settings.resolution - 1);
-                        float xMin = xPosition - xPosition % heightmapSpacing;
-                        float yMin = yPosition - yPosition % heightmapSpacing;
-                        float minHeight = noiseProvider.GetValue(xMin, yMin, seed);
-                        float compareHeight = noiseProvider.GetValue(xMin + heightmapSpacing, yMin, seed);
+                        float radius = 0.45f;//settings.length / (settings.resolution - 1);
+                        float minHeight = noiseProvider.GetValue(xPosition-radius, zPosition-radius, seed);
+                        float compareHeight = noiseProvider.GetValue(xPosition-radius, zPosition+radius, seed);
                         if (compareHeight < minHeight) minHeight = compareHeight;
-                        compareHeight = noiseProvider.GetValue(xMin, yMin + heightmapSpacing, seed);
+                        compareHeight = noiseProvider.GetValue(xPosition+radius, zPosition-radius, seed);
                         if (compareHeight < minHeight) minHeight = compareHeight;
-                        compareHeight = noiseProvider.GetValue(xMin + heightmapSpacing, yMin + heightmapSpacing, seed);
+                        compareHeight = noiseProvider.GetValue(xPosition+radius, zPosition+radius, seed);
                         if (compareHeight < minHeight) minHeight = compareHeight;
-
-
 
                         // create and place tree
-                        Vector3 treePosition = new Vector3(xPosition, minHeight, yPosition);
+                        Vector3 treePosition = new Vector3(xPosition, minHeight, zPosition);
                         MonoBehaviour.Instantiate(tree, treePosition, Quaternion.identity, trees.transform);
                     }
                 }
