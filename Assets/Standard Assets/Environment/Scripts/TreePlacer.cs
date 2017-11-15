@@ -41,6 +41,7 @@ namespace Terrain
                         float xPosition = i + xOffset;
                         float zPosition = j + zOffset;
 
+                        if (noiseProvider.GetValue(xPosition, zPosition, seed) < 0.2f) continue;
 
                         // find y position by choosing lowest point from 4 nearest heightmap points
                         float radius = 0.45f;
