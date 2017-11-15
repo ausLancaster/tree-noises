@@ -16,6 +16,7 @@ public class TreeGenerator : MonoBehaviour {
 	void Awake () {
 
         seed = System.DateTime.Now.Millisecond;
+        Random.InitState(seed);
 
         Dictionary<string, List<Rule>> grammar = new Dictionary<string, List<Rule>>();
         grammar["T"] = new List<Rule>();
@@ -34,6 +35,7 @@ public class TreeGenerator : MonoBehaviour {
     public void DoTurtle(float breath)
     {
         Random.InitState(seed);
+
         turtle = new LSys.Turtle(breath);
         turtle.RenderSymbols(ll);
         MeshBuilder mg = turtle.meshGenerator;

@@ -65,6 +65,10 @@ namespace Terrain
         {
             terrainChunk1.Destroy();
             terrainChunk2.Destroy();
+            foreach (IFeatureGenerator fg in featureGenerator)
+            {
+                fg.Destroy();
+            }
 
         }
 

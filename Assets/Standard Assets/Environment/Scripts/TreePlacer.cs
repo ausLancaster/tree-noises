@@ -22,12 +22,12 @@ namespace Terrain
 
             tree = (GameObject)Resources.Load("Tree", typeof(GameObject));
 
-            trees = new GameObject("Trees");
         }
 
         // Use this for initialization
         public void Generate(float seed, INoiseProvider noiseProvider, TerrainChunkSettings settings)
         {
+            trees = new GameObject("Trees");
 
             for (float i = -length/2; i < length/2; i += spacing)
             {
@@ -60,6 +60,11 @@ namespace Terrain
                     }
                 }
             }
+        }
+
+        public void Destroy()
+        {
+            GameObject.Destroy(trees);
         }
     }
 

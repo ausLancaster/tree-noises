@@ -8,5 +8,7 @@ namespace Terrain
     {
 
         void Generate(float seed, INoiseProvider noiseProvider, TerrainChunkSettings settings);
+
+        void Destroy();
     }
 }
