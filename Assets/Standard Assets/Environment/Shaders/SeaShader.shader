@@ -17,6 +17,7 @@ Shader "Custom/SeaShader" {
 		_Step1("Color Step 1", Range(0, 1)) = 0.3
 		_Step2("Color Step 2", Range(0, 1)) = 0.7
 		_Step3("Color Step 3", Range(0, 1)) = 0.95
+		_Steps("Steps", Int) = 3
 		_SunPosition("Sun Position", Vector) = (0, 0, 0)
 		_SlopeWidth("Slope Width", Range(0, 50)) = 10
 	}
@@ -104,24 +105,49 @@ Shader "Custom/SeaShader" {
 		float3 _Color2;
 		float3 _Color3;
 		float3 _Color4;
+		int _Steps;
 
 		float3 getColor(Input IN) {
 			float noise1 = noise((IN.worldPos.xz + _Time.y*_Wave1Speed*_WaveDirs.xy) * _Wave1Freq) + 0.5;
 			float noise2 = noise((IN.worldPos.xz + _Time.y*_Wave2Speed*_WaveDirs.zw) * _Wave2Freq) + 0.5;
 			float totalNoise = ((noise1 + noise2) / 2);
 			totalNoise += sunReflection(IN);
-			if (totalNoise < _Step1) {
-				return _Color1;
+
+			if (_Steps == 3) {
+				if (totalNoise < _Step1) {
+					return _Color1;
+				}
+				else if (totalNoise < _Step2) {
+					return _Color2;
+				}
+				else if (totalNoise < _Step3) {
+					return _Color3;
+				}
+				else {
+					return _Color4;
+				}
 			}
-			else if (totalNoise < _Step2) {
-				return _Color2;
+			else if (_Steps == 2) {
+				if (totalNoise < _Step2) {
+					return _Color2;
+				}
+				else if (totalNoise < _Step3) {
+					return _Color3;
+				}
+				else {
+					return _Color4;
+				}
 			}
-			else if (totalNoise < _Step3) {
-				return _Color3;
+			else { // Steps = 1
+				if (totalNoise < _Step3) {
+					return _Color2;
+				}
+				else {
+					return _Color4;
+				}
+
 			}
-			else {
-				return _Color4;
-			}
+
 		}
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {

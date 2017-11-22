@@ -36,6 +36,8 @@ public class ShaderInit : MonoBehaviour {
         Color seaHighlight = brightness * Color.white + (1 - brightness) * ColorPalette.Sample(0.1f);
         seaMaterial.SetColor("_Color4", seaHighlight);
 
+        seaMaterial.SetInt("_Steps", Random.Range(1, 4));
+
     }
 
     void InitSky()
