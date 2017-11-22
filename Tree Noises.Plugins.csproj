@@ -110,6 +110,7 @@
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TerrainChunk.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TerrainChunkGenerator.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TerrainChunkSettings.cs" />
+    <Compile Include="Assets\Standard Assets\Environment\Scripts\TextHighlighter.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TreeBreather.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TreeGenerator.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TreePlacer.cs" />

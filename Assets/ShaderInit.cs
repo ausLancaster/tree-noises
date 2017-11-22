@@ -36,7 +36,7 @@ public class ShaderInit : MonoBehaviour {
         Color seaHighlight = brightness * Color.white + (1 - brightness) * ColorPalette.Sample(0.1f);
         seaMaterial.SetColor("_Color4", seaHighlight);
 
-        seaMaterial.SetInt("_Steps", Random.Range(3, 4));
+        seaMaterial.SetInt("_Steps", Random.Range(1, 4));
         seaMaterial.SetFloat("_Step1", Random.Range(0.3f, 0.5f));
         seaMaterial.SetFloat("_Step2", Random.Range(0.5f, 0.7f));
         seaMaterial.SetFloat("_Step3", Random.Range(0.7f, 0.95f));
