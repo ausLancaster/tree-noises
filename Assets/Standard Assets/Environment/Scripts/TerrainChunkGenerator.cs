@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 namespace Terrain
 {
@@ -15,38 +17,31 @@ namespace Terrain
         public INoiseProvider noiseProvider2;
 
         private List<IFeatureGenerator> featureGenerator;
+        public TreePlacer treePlacer;
 
         public TerrainChunk terrainChunk1;
         public TerrainChunk terrainChunk2;
 
         private float seed;
 
-        private void Awake()
+        public void Start()
         {
+            seed = Random.Range(0.0f, 100000.0f);
+
             settings = new TerrainChunkSettings(129, 200, 0.1f);
             noiseProvider1 = new SeussNoise0(true);
             noiseProvider2 = new SeussNoise0(false);
             featureGenerator = new List<IFeatureGenerator>();
 
+            treePlacer.length = settings.length;
+            featureGenerator.Add(treePlacer);
+
+        }
+
+        public void CreateTerrainChunk()
+        {
             seed = Random.Range(0.0f, 100000.0f);
 
-            featureGenerator.Add(new TreePlacer(settings.length));
-
-            CreateTerrainChunk();
-        }
-
-        private void Update()
-        {
-            if (Input.GetButtonDown("Generate"))
-            {
-                seed = Random.Range(0.0f, 100000.0f);
-                RemoveTerrainChunk();
-                CreateTerrainChunk();
-            }
-        }
-
-        private void CreateTerrainChunk()
-        {
             terrainChunk1 = new TerrainChunk(settings, noiseProvider1, seed, featureGenerator, terrainMaterial1);
             terrainChunk1.GenerateHeightmap();
             terrainChunk1.CreateTerrain();
@@ -61,7 +56,7 @@ namespace Terrain
             }
         }
 
-        private void RemoveTerrainChunk()
+        public void RemoveTerrainChunk()
         {
             terrainChunk1.Destroy();
             terrainChunk2.Destroy();

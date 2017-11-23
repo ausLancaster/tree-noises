@@ -10,6 +10,7 @@ public class CharacterPlacer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        transform.position = new Vector3(0, relativeHeight, 0);
         Place();
     }
 	
@@ -24,6 +25,7 @@ public class CharacterPlacer : MonoBehaviour {
 
     private void Place()
     {
-        transform.position = new Vector3(0, tcg.GetHeight(0, 0) + relativeHeight, 0);
+        float newHeight = tcg.GetHeight(transform.position.x, transform.position.z) + relativeHeight;
+        transform.position = new Vector3(transform.position.x, newHeight, transform.position.z);
     }
 }

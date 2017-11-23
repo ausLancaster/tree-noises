@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Standard Assets/MainScene.unity
+- path: W:/Unity Projects/ACrackInTheSlab/Assets/Scenes/UniverseA.unity
   isLoaded: 1
   isActive: 1

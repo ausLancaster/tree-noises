@@ -1,0 +1,45 @@
+Initialize engine version: 5.5.4p4 (e92bef0ab5a4)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 970 (ID=0x13c2)
+    Vendor:   NVIDIA
+    VRAM:     3072 MB
+    Driver:   21.21.13.7878
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.081 seconds
+Platform assembly: C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\work\Unity Projects\Tree Noises\Tree Noises_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.162416 ms
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 1e48 -> priority: 1 
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.199564 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 932.
+Total: 2.619240 ms (FindLiveObjects: 0.050043 ms CreateObjectMapping: 0.020778 ms MarkObjects: 2.530274 ms  DeleteObjects: 0.017559 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.733972 ms
+
+Unloading 54 unused Assets to reduce memory usage. Loaded Objects now: 932.
+Total: 2.654944 ms (FindLiveObjects: 0.046531 ms CreateObjectMapping: 0.127303 ms MarkObjects: 2.393020 ms  DeleteObjects: 0.087795 ms)
+

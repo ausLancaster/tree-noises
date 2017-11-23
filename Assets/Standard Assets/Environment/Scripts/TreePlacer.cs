@@ -5,24 +5,15 @@ using UnityEngine;
 namespace Terrain
 {
 
-    public class TreePlacer : IFeatureGenerator
+    public class TreePlacer : MonoBehaviour, IFeatureGenerator
     {
 
-        private GameObject tree;
-        private float seed;
-        private float length;
+        public GameObject tree;
+        public float length { get; set; }
         private float spacing = 12.0f;
         private float maxDiplacement = 9.0f;
         private float noiseThreshold = 0.6f;
         private GameObject trees;
-
-        public TreePlacer(float length)
-        {
-            this.length = length;
-
-            tree = (GameObject)Resources.Load("Tree", typeof(GameObject));
-
-        }
 
         // Use this for initialization
         public void Generate(float seed, INoiseProvider noiseProvider, TerrainChunkSettings settings)
