@@ -75,13 +75,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Tree Noises.Plugins.csproj">
-      <Project>{4D3156EA-E64A-51E1-F60F-522D14DE5205}</Project>
-      <Name>Tree Noises.Plugins</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Assets\ColorPalette.cs" />
     <Compile Include="Assets\ShaderInit.cs" />
   </ItemGroup>
   <ItemGroup>

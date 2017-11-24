@@ -13,17 +13,8 @@ public class CharacterPlacer : MonoBehaviour {
         transform.position = new Vector3(0, relativeHeight, 0);
         Place();
     }
-	
-	// Update is called once per frame
-	void LateUpdate () {
-        if (Input.GetButtonDown("Generate"))
-        {
-            Place();
-        }
 
-    }
-
-    private void Place()
+    public void Place()
     {
         float newHeight = tcg.GetHeight(transform.position.x, transform.position.z) + relativeHeight;
         transform.position = new Vector3(transform.position.x, newHeight, transform.position.z);
