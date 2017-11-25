@@ -122,6 +122,7 @@
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TurteInstructionSet.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\Turtle.cs" />
     <Compile Include="Assets\Standard Assets\Environment\Scripts\TurtleInstruction.cs" />
+    <Compile Include="Assets\Standard Assets\Environment\Scripts\Vingette.cs" />
     <Compile Include="Assets\Standard Assets\FirstPersonCharacter\Scripts\FirstPersonController.cs" />
     <Compile Include="Assets\Standard Assets\FirstPersonCharacter\Scripts\Interact.cs" />
     <Compile Include="Assets\Standard Assets\FirstPersonCharacter\Scripts\MouseLook.cs" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+    <None Include="Assets\Standard Assets\Environment\Shaders\ColorAndVingette.shader" />
     <None Include="Assets\Standard Assets\Environment\Shaders\PaletteShader.shader" />
     <None Include="Assets\Standard Assets\Environment\Shaders\SeaShader.shader" />
     <None Include="Assets\Standard Assets\Environment\Shaders\SkyShader.shader" />

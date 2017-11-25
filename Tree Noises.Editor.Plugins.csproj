@@ -124,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+    <None Include="Assets\Standard Assets\Environment\Shaders\ColorAndVingette.shader" />
     <None Include="Assets\Standard Assets\Environment\Shaders\PaletteShader.shader" />
     <None Include="Assets\Standard Assets\Environment\Shaders\SeaShader.shader" />
     <None Include="Assets\Standard Assets\Environment\Shaders\SkyShader.shader" />

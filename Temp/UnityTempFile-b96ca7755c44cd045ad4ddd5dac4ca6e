@@ -126,6 +126,7 @@
 "Assets/Standard Assets/Environment/Scripts/TurteInstructionSet.cs"
 "Assets/Standard Assets/Environment/Scripts/Turtle.cs"
 "Assets/Standard Assets/Environment/Scripts/TurtleInstruction.cs"
+"Assets/Standard Assets/Environment/Scripts/Vingette.cs"
 "Assets/Standard Assets/FirstPersonCharacter/Scripts/FirstPersonController.cs"
 "Assets/Standard Assets/FirstPersonCharacter/Scripts/Interact.cs"
 "Assets/Standard Assets/FirstPersonCharacter/Scripts/MouseLook.cs"
